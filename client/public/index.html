@@ -18,6 +18,36 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
             <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+            <style>
+                  body {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                        height: auto;
+                        scrollbar-color: blue;
+                  }
+                  /* width */
+                  ::-webkit-scrollbar {
+                        width: 10px;
+                  }
+
+                  /* Track */
+                  ::-webkit-scrollbar-track {
+                        background: #ffffff00;
+                  }
+
+                  /* Handle */
+                  ::-webkit-scrollbar-thumb {
+                        background: #ccc;
+                        border-radius: 20px;
+                  }
+
+                  /* Handle on hover */
+                  ::-webkit-scrollbar-thumb:hover {
+                        background: #555;
+                  }
+            </style>
             <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

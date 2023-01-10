@@ -145,10 +145,89 @@ export const readExcel = () => {
       //       return a.Days - b.Days;
       // });
 
-      const arrData = xlsx.utils.sheet_to_json(ws,{header:1,range: 1});
-      arrData.sort((a,b)=>{return a[6]-b[6]})
+      const arrData = xlsx.utils.sheet_to_json(ws, { header: 1, range: 1 });
+      arrData.sort((a, b) => {
+            return a[6] - b[6];
+      });
 
       console.log(arrData);
 };
 
-readExcel();
+const monthMap = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+];
+
+const getNextMonth = (dateString) => {
+      // dateString sample >> Jan 23 2023
+      const month = dateString.slice(0, 3);
+      const day = dateString.slice(4, 6);
+      const year = dateString.slice(7, 11);
+      // get month and index
+      const index = monthMap.findIndex((cv) => cv === month);
+
+      let nextMonth = '';
+      if (index !== 11 && index !== 0) {
+            //check  if month is from Febuary to November
+            nextMonth = `${monthMap[index + 1]} ${day} ${year}`;
+      } else if (index == 11) {
+            //check  if month is December
+            nextMonth = `${monthMap[0]} ${day} ${String(Number(year) + 1)}`;
+      } else {
+            // check if  month is january and check day 28 to day 29
+            const day2829 = Number(day);
+
+            if (day2829 > 28) {
+                  const getfeb2829 = new Date(year, 2, 0).getDate();
+                  nextMonth = `${monthMap[1]} ${getfeb2829} ${String(
+                        Number(year) + 1
+                  )}`;
+            } else {
+                  nextMonth = `${monthMap[1]} ${day} ${String(
+                        Number(year) + 1
+                  )}`;
+            }
+      }
+      return nextMonth;
+};
+
+const newDateFormat = () => {
+      const date = new Date();
+      const day = date.getDate();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+      // get this month
+      const thisMonth = [month, day, year];
+
+      // get nextMonth
+      let nextMonth = [0, 0, 0];
+      //check  if month is from Febuary to November
+      if (index !== 11 && index !== 0) {
+            nextMonth = [month + 1, day, year];
+      } else if (index == 11) {
+            //check  if month is December
+            nextMonth = [0, day, year + 1];
+      } else {
+            // check if  month is january and check day 28 to day 29
+
+            if (day > 28) {
+                  const getfeb2829 = new Date(year, 2, 0).getDate();
+                  nextMonth = [1, getfeb2829, year];
+            } else {
+                  nextMonth = [1, day, year];
+            }
+      }
+      return { thisMonth, nextMonth };
+};
+
+newDateFormat();

@@ -15,7 +15,7 @@ const DeleteComp = () => {
                               data: data.key,
                         }
                   );
-                  console.log('delete comp', res);
+                  
             } catch (err: any) {
                   console.log('Error Message: ', err.message);
                   // setError(err.message);
@@ -62,7 +62,7 @@ const DeleteComp = () => {
                                           className='w-auto flex text-lg font-normal bg-slate-600 text-white '
                                     >
                                           <h2 className=' py-1 pl-5 w-44 '>
-                                                {data.head[i]}
+                                                {/* {data.head[i]} */}
                                           </h2>
                                           <h2 className={`py-1 pl-2 `}>
                                                 {val}

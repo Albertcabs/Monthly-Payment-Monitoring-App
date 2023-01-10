@@ -1,109 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import { nextMonthFormat, thisMonthFormat } from '../function/dateFormat';
+import React, { useEffect } from 'react';
 
 import axios from 'axios';
 import { ListContext } from '../App';
+import getNextMonth from '../function/getNextMonth';
+
+import newDateFormat from '../function/newDateFormat';
+import dateFormat from '../function/dateFormat';
+import { dValue,dValType } from '../types/Customer.type';
 
 // useForm functional component
+
 
 export const useForm = (dateValue: number[]) => {
       const app = React.useContext(ListContext);
       const { data, setData } = app;
-      const [values, setValues] = useState({});
+      const dataKey = Object.values(data.key);
 
-      // Load initial value of  form
-      useEffect(() => {
-            // default Value Forms
-            const dVal: any[] = Object.values(data.key);
+      const { thisMonth, nextMonth } = newDateFormat();
+      // load default value
 
-            const { nextMonth, getDays } = nextMonthFormat(new Date());
-            const thisMonth = thisMonthFormat(new Date());
+      const [dVal, setDVal] = React.useState<dValType>( dValue);
 
-            // default value and update value
-            let tmp = data.showComp === 'showUpdateComp';
-            const dValue = tmp
-                  ? [dVal[0], dVal[1], dVal[4], dVal[5]]
-                  : ['', '', 'Monthly', '1000'];
-            const Value = tmp
-                  ? [dVal[2], dVal[3], dVal[6]]
-                  : [thisMonth, nextMonth, getDays];
-          
-            setValues({
-                  ID: dValue[0],
-                  customerName: dValue[1],
-                  startDate: Value[0],
-                  dueDate: Value[1],
-                  payment: dValue[2],
-                  price: dValue[3],
-                  daynum: Value[2],
-            });
+      // load default Values
+      React.useEffect(() => {
+            if (data.showComp === 'showUpdateComp') {
+                  setDVal({
+                        IDNum: dataKey[0],
+                        customerName: dataKey[1],
+                        startDate: dataKey[2],
+                        dueDate: dataKey[3],
+                        payment: dataKey[4],
+                        price: dataKey[5],
+                  });
+            } else {
+                  const ID = 'A' + Math.round(Math.random() * 9000 + 1000);
+                  setDVal({
+                        IDNum: ID,
+                        customerName: '',
+                        startDate: dateFormat(thisMonth),
+                        dueDate: dateFormat(nextMonth),
+                        payment: 'MonthLy',
+                        price: '1200',
+                  });
+            }
+
             // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
-      useEffect(() => {
-            const getThisYear = new Date().getFullYear();
-            const getThisMonth = new Date().getMonth();
+      // Load initial value of  form
 
-            if (dateValue[0]) {
-                  const { nextMonth, getDays } = nextMonthFormat(
-                        new Date(
-                              `${getThisYear}-${getThisMonth + 1}-${
-                                    dateValue[2]
-                              }`
-                        )
-                  );
-                  setValues({
-                        ...values,
-                        startDate: thisMonthFormat(
-                              new Date(
-                                    `${dateValue[0]}-${dateValue[1] + 1}-${
-                                          dateValue[2]
-                                    }`
-                              )
-                        ),
-                        dueDate: nextMonth,
-                        daynum: getDays,
+      useEffect(() => {
+            if (dateValue.length !== 0) {
+                  const nwDate = dateFormat(dateValue);
+                  const nxtDate = dateFormat(getNextMonth(dateValue));
+                  setDVal({
+                        ...dVal,
+                        startDate: nwDate,
+                        dueDate: nxtDate,
                   });
             }
+
             // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [dateValue]);
-
-      const defaultValue: string[] = Object.values(values);
 
       // onChange
       const onChange = async (
             event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
       ) => {
-            if ('startDate' === event.target.name) {
-                  console.log(event.target.value);
-            } else {
-                  setValues({
-                        ...values,
-                        [event.target.name]: event.target.value,
-                  });
-            }
+            setDVal({
+                  ...dVal,
+                  [event.target.name]: event.target.value,
+            });
       };
 
       // call back function for submit
       async function loginUserCallback() {
+            let isDone = false;
             try {
                   if (data.showComp === 'showUpdateComp') {
                         const res = await axios.put(
                               'http://localhost:5050/update',
-                              values
+                              dVal
                         );
-                        console.log(res);
+                        isDone = res.status === 200 ? true : false;
                   } else {
                         const res = await axios.post(
                               'http://localhost:5050/create',
-                              values
+                              dVal
                         );
-                        console.log(res);
+
+                        isDone = res.status === 200 ? true : false;
                   }
             } catch (error: any) {
                   alert('opps!!Something went wrong');
                   console.log(error.message);
-            } finally {
+            }
+            if (isDone) {
                   setData({ ...data, key: [], showComp: 'none', reload: true });
             }
       }
@@ -111,6 +103,7 @@ export const useForm = (dateValue: number[]) => {
       // onSubmit
       const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
+
             await loginUserCallback();
       };
 
@@ -118,6 +111,6 @@ export const useForm = (dateValue: number[]) => {
       return {
             onChange,
             onSubmit,
-            defaultValue,
+            dVal,
       };
 };

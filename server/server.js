@@ -31,22 +31,24 @@ app.use(express.json());
 
 // sent data to client side request
 app.get('/', async (req, res) => {
-      const data = readExcel();     
+      const data = readExcel();
       res.send(data);
 });
 
 // recieve data from front end
 app.post('/create', async (req, res) => {
       const data = req.body;
-      console.log(data);
+      // console.log(data)
       writeRowExcel(data);
       res.end('create custmer is done!');
 });
 
 app.put('/update', async (req, res) => {
       const data = req.body;
-      console.log(data);
-      updateRowExcel(data);
+
+      const newData = Object.values(data);
+
+      updateRowExcel(newData);
 
       res.end('Update the Custmer data is done!');
 });
@@ -54,7 +56,8 @@ app.put('/update', async (req, res) => {
 // delete
 app.delete('/delete', async (req, res) => {
       const data = Object.values(req.body);
-      deleteRowExcel(data[0],data[1]);
+      //console.log(data)
+      deleteRowExcel(data);
       res.end('delete cmd is done!');
 });
 

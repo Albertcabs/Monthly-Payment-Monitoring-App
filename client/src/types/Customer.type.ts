@@ -14,7 +14,7 @@ export const initialState = {
       price: '',
 };
 
-export const monthMap  = [
+export const monthMap = [
       'Jan',
       'Feb',
       'Mar',
@@ -29,8 +29,7 @@ export const monthMap  = [
       'Dec',
 ];
 
-
-export  const basis = [
+export const basis = [
       'basis-20',
       'basis-60',
       'basis-36',
@@ -38,3 +37,21 @@ export  const basis = [
       'basis-24',
       'basis-20',
 ];
+
+export type dValType = {
+      IDNum: string;
+      customerName: string;
+      startDate: string;
+      dueDate: string;
+      payment: string;
+      price: string;
+};
+
+export const dValue = {
+      IDNum: '',
+      customerName: '',
+      startDate: '',
+      dueDate: '',
+      payment: '',
+      price: '',
+}

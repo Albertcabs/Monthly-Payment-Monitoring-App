@@ -4,38 +4,45 @@ import { basis } from '../../types/Customer.type';
 
 type tableBodyprops = {
       tableBody: string[][];
-      dayIn: string[];
 };
-const ListBodyComp = ({ tableBody, dayIn }: tableBodyprops) => {
-      const dayToday = new Date().getDate();
+const ListBodyComp = ({ tableBody }: tableBodyprops) => {
+      const getDay = new Date().getDate();
+      const [arrNo, setArrNo] = React.useState<boolean[]>([]);
+
+      React.useEffect(() => {
+            const arr = tableBody.map((val, i) => {
+                  return Number(val[3].slice(3, 6)) < getDay;
+            });
+            setArrNo(arr);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
+
+      //extract Data
 
       if (!tableBody?.length) return <h3>No Data to Disply</h3>;
       return (
-            <div id='tbody' className=''>
+            <div className='widthClass block text-xs '>
                   {tableBody.map((val, index) => {
                         return (
                               <div
                                     id={val[0]}
                                     key={index}
-                                    className={`relative  items-center flex border-b border-green-500 bg-slate-800 text-white  `}
+                                    className={`flex border-b border-slate-700 bg-slate-800 text-white  items-center py-1
+                                    `}
                               >
                                     {val.map((value, i) => {
                                           return (
                                                 <section
                                                       key={i}
                                                       hidden={false}
-                                                      className={`text-center py-1  border-r border-cyan-300  ${basis[i]}    `}
+                                                      className={`text-center border-r border-slate-700  ${basis[i]} `}
                                                 >
                                                       <span
-                                                            className={`${
-                                                                  dayToday >=
-                                                                        Number(
-                                                                              dayIn[
-                                                                                    index
-                                                                              ]
-                                                                        ) &&
+                                                            className={`text-white rounded-3xl px-3 py-1 ${
                                                                   i === 3 &&
-                                                                  'bg-red-700 text-white rounded-3xl px-3 py-1.5 '
+                                                                  arrNo[index]
+                                                                        ? 'bg-red-700'
+                                                                        : null
                                                             }`}
                                                       >
                                                             {value}
@@ -43,9 +50,9 @@ const ListBodyComp = ({ tableBody, dayIn }: tableBodyprops) => {
                                                 </section>
                                           );
                                     })}
-                                    <section className='flex place-content-evenly flex-grow '>
+                                    <div className='flex justify-center items-center flex-grow '>
                                           <ActionComp keys={val} />
-                                    </section>
+                                    </div>
                               </div>
                         );
                   })}

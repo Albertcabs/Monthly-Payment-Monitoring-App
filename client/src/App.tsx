@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormComp from './components/FormComp';
 import ShowAllList from './components/tableComp/ShowAllList';
 import AppHeader from './components/AppHeader';
 import DeleteComp from './components/DeleteComp';
+import UpdatePaymentComp from './components/UpdatePaymentComp';
 
 interface ActType {
-      head: string[];
+      listHead: string[];
+      listBody: any[];
       key: string[];
       showComp: string;
       reload: boolean;
       check: boolean;
 }
 const initState = {
-      head: [''],
+      listHead: [''],
+      listBody: [],
       key: [''],
       showComp: 'none',
       reload: false,
@@ -30,6 +33,16 @@ export const ListContext = React.createContext<ContextType>({
 
 function App() {
       const [data, setData] = useState<ActType>(initState);
+      const [getHeight, setGetHeight] = useState<number[]>([]);
+
+      useEffect(() => {
+            const { innerHeight } = window;
+            const headerH = Math.floor(innerHeight * 0.08);
+            const bodyH = Math.floor(innerHeight * 0.92);
+            const footH = Math.floor(innerHeight * 0.04);
+            setGetHeight([headerH, bodyH, footH]);
+      }, []);
+
       return (
             <ListContext.Provider
                   value={{
@@ -37,18 +50,38 @@ function App() {
                         setData,
                   }}
             >
-                  <div className='relative min-w-max lg:w-960 md:w-860 min-h-screen mx-auto my-5 border border-blue-700 mt-5 rounded-t-xl'>
-                        <AppHeader />
+                  <div className='widthClass relative  flex-col  h-full my-auto '>
+                        <header
+                              style={{ height: getHeight[0] }}
+                              className='widthClass absolute '
+                        >
+                              <AppHeader />
+                        </header>
+                        <main
+                              style={{ height: getHeight[1], top:`${getHeight[0]}px`}}
+                              className='widthClass absolute bg-slate-800'
+                        >
+                              <ShowAllList tableH={getHeight[1]} />
+                        </main>
 
-                        <ShowAllList />
+                        <footer
+                              style={{ height: getHeight[2] }}
+                              id='footer'
+                              className='widthClass h-[500] fixed bottom-0 bg-green-800  '
+                        >
+                              Footer
+                        </footer>
 
-                        {data.showComp === 'showFormComp'|| data.showComp === 'showUpdateComp' ? <FormComp /> : null}
-
+                        {data.showComp === 'showFormComp' ||
+                        data.showComp === 'showUpdateComp' ? (
+                              <FormComp />
+                        ) : null}
                         {data.showComp === 'showDeleteComp' ? (
                               <DeleteComp />
                         ) : null}
-
-                     
+                        {data.showComp === 'showUpdatePayComp' ? (
+                              <UpdatePaymentComp />
+                        ) : null}
                   </div>
             </ListContext.Provider>
       );

@@ -69,8 +69,8 @@ const DatePicker = ({ setDateValue, setShowDatePicker }: MyDateProps) => {
       daysMapping();
 
       const onclickHandler2 = (dayNum: number) => {
-            if (dayNum !== 0) {   
-                  setDateValue([year, month, dayNum]);
+            if (dayNum !== 0) {
+                  setDateValue([month, dayNum, year]);
                   setShowDatePicker(false);
             } else {
                   alert('Ops!! please select month number 1 to 31');

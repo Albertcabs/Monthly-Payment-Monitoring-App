@@ -1,36 +1,43 @@
 import React from 'react';
-import ListHeadComp from './ListHeadComp';
-import TableBodyComp from './ListBodyComp';
-import LoadingComp from '../LoadingComp';
-import { ListContext } from '../../App';
-import useAxios from '../../hooks/useAxios';
 
-const ShowAllList = () => {
-      const load = React.useContext(ListContext);
-      const { data, setData } = load;
+import ListBodyComp from './ListBodyComp';
+import LoadingComp from '../LoadingComp';
+import useAxios from '../../hooks/useAxios';
+import { ListContext } from '../../App';
+import ListHeadComp from './ListHeadComp';
+type Props = {
+      tableH: number;
+};
+const ShowAllList = ({ tableH }: Props) => {
+      const list = React.useContext(ListContext);
+      const { data, setData } = list;
 
       // costume hook useAxios
-      const { header, body, daysIn, errMessage, loading } = useAxios();
+      const { errMessage, loading, resBody, resHead } = useAxios();
+      // load Head
       React.useEffect(() => {
-            setData({ ...data, head: header });
+            setData({ ...data, listHead: resHead });
             // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [header]);
+      }, [resBody]);
 
       const DisplayData = React.useCallback(() => {
-            return <TableBodyComp tableBody={body} dayIn={daysIn} />;
-      }, [body, daysIn]);
+            // const newArr = resBody.sort((a, b) => {
+            //       return Number(a[3].slice(3, 6)) - Number(b[3].slice(3, 6));
+            // });
+         
+            return <ListBodyComp tableBody={resBody} />;
+      }, [resBody]);
 
       const message =
             'bg-slate-600 rounded-full text-center py-2 mt-5 text-red-500 border-emerald-500 border w-60 mx-auto';
 
       return (
-            <div className='relative my-3 mx-2 border-2 border-slate-500 '>
-                  <div className='w-full text-sm text-left text-gray-500 dark:text-gray-400 border-separate border-spacing-px '>
-                        <ListHeadComp head={header} />
-                        {!loading && !errMessage && body.length ? (
-                              <DisplayData />
-                        ) : null}
-                  </div>
+            <div id='body' className='withClass relative block '>
+                  <ListHeadComp head={resHead} />
+
+                  {!loading && !errMessage && resBody.length ? (
+                        <DisplayData />
+                  ) : null}
 
                   {loading && <LoadingComp />}
 
@@ -38,12 +45,9 @@ const ShowAllList = () => {
                         <p className={message}>{errMessage}</p>
                   )}
 
-                  {!loading && !errMessage && !body.length && (
+                  {!loading && !errMessage && !resBody.length && (
                         <h1 className={message}>No List to display </h1>
                   )}
-
-                
-                 
             </div>
       );
 };
