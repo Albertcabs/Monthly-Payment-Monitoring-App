@@ -30,12 +30,13 @@ export const monthMap = [
 ];
 
 export const basis = [
-      'basis-20',
-      'basis-60',
-      'basis-36',
-      'basis-36',
-      'basis-24',
-      'basis-20',
+      'lg:basis-20 md:basis-16 sm:basis-14',
+      'lg:basis-60 md:basis-44 sm:basis-40',
+      'lg:basis-36 md:basis-28 sm:basis-24',
+      'lg:basis-36 md:basis-28 sm:basis-24',
+      'lg:basis-24 md:basis-24 sm:basis-14',
+      'lg:basis-20 md:basis-16 sm:basis-12',
+      'lg:basis-40 md:basis-20 sm:basis-16 ',
 ];
 
 export type dValType = {
@@ -54,4 +55,4 @@ export const dValue = {
       dueDate: '',
       payment: '',
       price: '',
-}
+};

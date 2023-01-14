@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import FormComp from './components/FormComp';
 import ShowAllList from './components/tableComp/ShowAllList';
 import AppHeader from './components/AppHeader';
@@ -33,16 +33,6 @@ export const ListContext = React.createContext<ContextType>({
 
 function App() {
       const [data, setData] = useState<ActType>(initState);
-      const [getHeight, setGetHeight] = useState<number[]>([]);
-
-      useEffect(() => {
-            const { innerHeight } = window;
-            const headerH = Math.floor(innerHeight * 0.08);
-            const bodyH = Math.floor(innerHeight * 0.92);
-            const footH = Math.floor(innerHeight * 0.04);
-            setGetHeight([headerH, bodyH, footH]);
-      }, []);
-
       return (
             <ListContext.Provider
                   value={{
@@ -50,27 +40,10 @@ function App() {
                         setData,
                   }}
             >
-                  <div className='widthClass relative  flex-col  h-full my-auto '>
-                        <header
-                              style={{ height: getHeight[0] }}
-                              className='widthClass absolute '
-                        >
-                              <AppHeader />
-                        </header>
-                        <main
-                              style={{ height: getHeight[1], top:`${getHeight[0]}px`}}
-                              className='widthClass absolute bg-slate-800'
-                        >
-                              <ShowAllList tableH={getHeight[1]} />
-                        </main>
+                  <div className='flex-row bg-slate-800 lg:w-950 md:w-740 sm:w-650 mx-auto '>
+                        <AppHeader />
 
-                        <footer
-                              style={{ height: getHeight[2] }}
-                              id='footer'
-                              className='widthClass h-[500] fixed bottom-0 bg-green-800  '
-                        >
-                              Footer
-                        </footer>
+                        <ShowAllList />
 
                         {data.showComp === 'showFormComp' ||
                         data.showComp === 'showUpdateComp' ? (
@@ -82,6 +55,10 @@ function App() {
                         {data.showComp === 'showUpdatePayComp' ? (
                               <UpdatePaymentComp />
                         ) : null}
+
+                        <div className=' botton-0 h-12 w-full bg-green-800  '>
+                              <h3> Footer</h3>
+                        </div>
                   </div>
             </ListContext.Provider>
       );

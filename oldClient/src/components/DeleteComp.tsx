@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListContext } from './App';
+import { ListContext } from '../App';
 import axios from 'axios';
 
 const DeleteComp = () => {

@@ -24,12 +24,11 @@ export const readExcel = () => {
 
       const value = xlsx.utils.sheet_to_json(ws, {
             raw: false,
-            header: 1,
       });
-      //  console.log(value)
-
       return value;
 };
+
+readExcel();
 export const writeRowExcel = (arrObject) => {
       // get workbook
       const { wb, ws, s, e } = readExcelFile();

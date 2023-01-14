@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListContext } from './App';
+import { ListContext } from '../App';
 import ButtonImgComp from './ButtonComp/ButtonImgComp';
 import closeSvg from '../img/close.svg';
 import { getNextMonth } from '../function/formatDate';
@@ -75,7 +75,7 @@ const UpdatePaymentComp = () => {
                         />
                   </div>
 
-                  <div className='hi mx-auto mt-5 py-2 text-sm px-5'>
+                  <div className=' mx-auto mt-5 py-2 text-sm px-5'>
                         <section className='flex  mb-4 '>
                               <h4 className='w-24'>Name : </h4>
                               <span>{data.key[1]}</span>

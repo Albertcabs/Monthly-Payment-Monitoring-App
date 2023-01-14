@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
-import { ListContext } from '../App';
+import { ListContext } from '../components/App';
 
 const useAxios = () => {
       const list = React.useContext(ListContext);
@@ -14,8 +14,8 @@ const useAxios = () => {
       const fetchData = async () => {
             try {
                   const res = await axios.get('http://localhost:5050/');
-                  setResHead(res.data[0]);
-                  setResBody(res.data.slice(1));
+                  setResHead(Object.keys(res.data[0]));
+                  setResBody(res.data);
                  
             } catch (err: any) {
                   setErrMessage(err.message);
