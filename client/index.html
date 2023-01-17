@@ -13,10 +13,43 @@
                         padding: 0;
                         box-sizing: border-box;
                   }
+                  body {
+                        height: 100vh;
+                        width: 100vw;
+                        flex: auto;
+                        overflow-x: hidden;
+                  }
                   img {
-                     max-width: 100%;
-                     max-height: 100%;
-                     object-fit: cover;
+                        max-width: 100%;
+                        max-height: 100%;
+                        object-fit: cover;
+                  }
+                  .rtl-content {
+                        direction: rtl;
+                  }
+                  .ltr-content {
+                        direction: ltr;
+                  }
+                  /* width */
+                  ::-webkit-scrollbar {
+                        width: 2px;
+                  }
+
+                  /* Track */
+                  ::-webkit-scrollbar-track {
+                        background: #ffffff00;
+                  }
+
+                  /* Handle */
+                  ::-webkit-scrollbar-thumb {
+                        background: rgb(153, 224, 22);
+                        border-radius: 20px;
+                  }
+
+                  /* Handle on hover */
+                  ::-webkit-scrollbar-thumb:hover {
+                        background: #555;
+                        height: 5px;
                   }
             </style>
             <title>Monthly Collection List</title>

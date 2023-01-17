@@ -6,36 +6,33 @@ import getNextMonth from '../function/getNextMonth';
 
 import newDateFormat from '../function/newDateFormat';
 import dateFormat from '../function/dateFormat';
-import { dValue,dValType } from '../types/Customer.type';
+import { dValue, dValType } from '../types/Customer.type';
 
 // useForm functional component
 
-
 export const useForm = (dateValue: number[]) => {
-      const app = React.useContext(ListContext);
-      const { data, setData } = app;
-      const dataKey = Object.values(data.key);
+      const { data, setData } = React.useContext(ListContext);
 
       const { thisMonth, nextMonth } = newDateFormat();
       // load default value
 
-      const [dVal, setDVal] = React.useState<dValType>( dValue);
+      const [dVal, setDVal] = React.useState<dValType>(dValue);
 
       // load default Values
       React.useEffect(() => {
-            if (data.showComp === 'showUpdateComp') {
+            if (data.key.length > 1) {
                   setDVal({
-                        IDNum: dataKey[0],
-                        customerName: dataKey[1],
-                        startDate: dataKey[2],
-                        dueDate: dataKey[3],
-                        payment: dataKey[4],
-                        price: dataKey[5],
+                        IDNum: data.key[0],
+                        customerName: data.key[1],
+                        startDate: data.key[2],
+                        dueDate: data.key[3],
+                        payment: data.key[4],
+                        price: data.key[5],
                   });
             } else {
-                  const ID = 'A' + Math.round(Math.random() * 9000 + 1000);
+                  const ID = 'A' + (data.customerName.length / 1234) * 10000000;
                   setDVal({
-                        IDNum: ID,
+                        IDNum: ID.slice(0, 6),
                         customerName: '',
                         startDate: dateFormat(thisMonth),
                         dueDate: dateFormat(nextMonth),
@@ -67,17 +64,28 @@ export const useForm = (dateValue: number[]) => {
       const onChange = async (
             event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
       ) => {
-            setDVal({
-                  ...dVal,
-                  [event.target.name]: event.target.value,
-            });
+            // check input Customer name and Capital the first Letter
+            if ('customerName' === event.target.name) {
+                  const str = event.target.value;
+                  setDVal({
+                        ...dVal,
+                        [event.target.name]:
+                              str.charAt(0).toUpperCase() +
+                              str.slice(1).toLowerCase(),
+                  });
+            } else {
+                  setDVal({
+                        ...dVal,
+                        [event.target.name]: event.target.value,
+                  });
+            }
       };
 
       // call back function for submit
       async function loginUserCallback() {
             let isDone = false;
             try {
-                  if (data.showComp === 'showUpdateComp') {
+                  if (data.key.length > 1) {
                         const res = await axios.put(
                               'http://localhost:5050/update',
                               dVal

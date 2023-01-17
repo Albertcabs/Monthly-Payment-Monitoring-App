@@ -19,7 +19,7 @@ const ActionComp = ({ keys }: ButtonProps) => {
                         setData({
                               ...data,
                               key: keys,
-                              showComp: 'showDeleteComp',
+                              showComp: 'showDelete',
                         });
                         break;
                   }
@@ -27,7 +27,7 @@ const ActionComp = ({ keys }: ButtonProps) => {
                         setData({
                               ...data,
                               key: keys,
-                              showComp: 'showUpdateComp',
+                              showComp: 'showForm',
                         });
                         break;
                   }
@@ -35,7 +35,7 @@ const ActionComp = ({ keys }: ButtonProps) => {
                         setData({
                               ...data,
                               key: keys,
-                              showComp: 'showUpdatePayComp',
+                              showComp: 'showUpdate',
                         });
                         break;
                   }
@@ -49,7 +49,7 @@ const ActionComp = ({ keys }: ButtonProps) => {
 
       return (
             <>
-                  <div className='flex justify-between py-1 flex-grow '>
+                  <div className='flex justify-between py-px flex-grow '>
                         {/* delete Icon as Button*/}
                         <ButtonImgComp
                               imgSrc={deleteSvg}

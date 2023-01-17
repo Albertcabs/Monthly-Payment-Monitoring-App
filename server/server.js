@@ -38,8 +38,9 @@ app.get('/', async (req, res) => {
 // recieve data from front end
 app.post('/create', async (req, res) => {
       const data = req.body;
+      const newData = Object.values(data);
       // console.log(data)
-      writeRowExcel(data);
+      writeRowExcel(newData);
       res.end('create custmer is done!');
 });
 

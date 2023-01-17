@@ -7,8 +7,8 @@ import axios from 'axios';
 import { dValue, dValType } from '../types/Customer.type';
 
 const UpdatePaymentComp = () => {
-      const list = React.useContext(ListContext);
-      const { data, setData } = list;
+      const  { data, setData }= React.useContext(ListContext);
+      
       const [val, setVal] = React.useState<dValType>(dValue);
       const arr = Object.values(data.key);
 

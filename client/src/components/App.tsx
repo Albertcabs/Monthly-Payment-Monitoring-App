@@ -4,22 +4,28 @@ import ShowAllList from './tableComp/ShowAllList';
 import AppHeader from './AppHeader';
 import DeleteComp from './DeleteComp';
 import UpdatePaymentComp from './UpdatePaymentComp';
+import ArrowIndicator from './ArrowIndicator';
+import useWinSize from '../hooks/useWinSize';
 
 interface ActType {
       listHead: string[];
       listBody: any[];
+      customerName: string[];
       key: string[];
       showComp: string;
       reload: boolean;
       check: boolean;
+      indexName: number;
 }
 const initState = {
       listHead: [''],
       listBody: [],
+      customerName: [''],
       key: [''],
       showComp: 'none',
       reload: false,
       check: false,
+      indexName: 0,
 };
 type ContextType = {
       data: ActType;
@@ -33,6 +39,8 @@ export const ListContext = React.createContext<ContextType>({
 
 function App() {
       const [data, setData] = useState<ActType>(initState);
+      const { headH, footerH, bodyH, winWidth } = useWinSize();
+
       return (
             <ListContext.Provider
                   value={{
@@ -40,27 +48,39 @@ function App() {
                         setData,
                   }}
             >
-                  <div className='  h-full w-full bg-slate-900'>
-                        <div className='h-full bg-slate-800 lg:w-[950px] md:w-[750px] sm:w-[650px] mx-auto '>
+                  <div
+                        className={`width-class relative mx-auto h-screen flex-row `}
+                  >
+                        <header
+                              style={{ height: `${headH + 'px'}` }}
+                              className=' dark:bg-green-800'
+                        >
                               <AppHeader />
+                        </header>
 
+                        <main
+                              style={{ height: `${bodyH + 'px'}` }}
+                              className=' relative dark:bg-slate-900 '
+                        >
                               <ShowAllList />
-
-                              {data.showComp === 'showFormComp' ||
-                              data.showComp === 'showUpdateComp' ? (
+                              <ArrowIndicator topP={bodyH} />
+                              {data.showComp === 'showForm' ? (
                                     <FormComp />
                               ) : null}
-                              {data.showComp === 'showDeleteComp' ? (
+                              {data.showComp === 'showDelete' ? (
                                     <DeleteComp />
                               ) : null}
-                              {data.showComp === 'showUpdatePayComp' ? (
+                              {data.showComp === 'showUpdate' ? (
                                     <UpdatePaymentComp />
                               ) : null}
+                        </main>
 
-                              <div className='sticky bottom-0 h-10 w-full bg-green-800 z-30  '>
-                                    <h3> Footer</h3>
-                              </div>
-                        </div>
+                        <footer
+                              style={{ height: `${footerH + 'px'}` }}
+                              className=' dark:bg-green-800    '
+                        >
+                              <h3> Footer</h3>
+                        </footer>
                   </div>
             </ListContext.Provider>
       );

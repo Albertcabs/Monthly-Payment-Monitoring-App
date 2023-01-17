@@ -22,26 +22,44 @@ export const readExcel = () => {
       // get workbook
       const { ws } = readExcelFile();
 
-      const value = xlsx.utils.sheet_to_json(ws, {
+      const values = xlsx.utils.sheet_to_json(ws, {
             raw: false,
+            header: 1,
       });
-      return value;
+
+      const head = values[0];
+      const body = values.slice(1);
+
+      return { head, body };
 };
 
-readExcel();
 export const writeRowExcel = (arrObject) => {
       // get workbook
       const { wb, ws, s, e } = readExcelFile();
       //.....................................................................
 
-      // write data spicific row
-      xlsx.utils.sheet_add_json(ws, [arrObject], {
-            skipHeader: true,
-            origin: xlsx.utils.encode_cell({ r: e.r + 1, c: s.c }),
+      // // write data spicific row
+      // xlsx.utils.sheet_add_json(ws, [arrObject], {
+      //       skipHeader: true,
+      //       origin: xlsx.utils.encode_cell({ r: e.r + 1, c: s.c }),
+      // });
+      const values = xlsx.utils.sheet_to_json(ws, {
+            raw: false,
+            header: 1,
+            range: 1,
+      });
+      values.push(arrObject);
+
+      const body = values.sort((a, b) => {
+            return Number(a[3].slice(3, 6)) - Number(b[3].slice(3, 6));
       });
 
+      xlsx.utils.sheet_add_aoa(ws, body, { origin: 'A2' });
+
       reWrite(wb);
+      
 };
+// writeRowExcel();
 export const deleteRowExcel = (data) => {
       // get workbook
       const { wb, ws, s, e } = readExcelFile();

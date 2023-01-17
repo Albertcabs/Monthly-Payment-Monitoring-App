@@ -4,8 +4,8 @@ import { ListContext } from './App';
 import DatePicker from './pickerDate/DatePicker';
 
 const FormComp = () => {
-      const show = React.useContext(ListContext);
-      const { data, setData } = show;
+      const { data, setData } = React.useContext(ListContext);
+     
       const [dateValue, setDateValue] = React.useState<number[]>([]);
       const [showDatePicker, setShowDatePicker] = React.useState(false);
 
@@ -17,9 +17,12 @@ const FormComp = () => {
 
       // a submit function that will execute upon form submission
       return (
-            <div className='absolute  inset-x-0 top-52 w-100 min-h-max py-5 mx-auto bg-slate-800 border boder-slate-300 text-slate-900'>
-                  <form className='py-5 px-10 flex-col' onSubmit={onSubmit}>
-                        <h3 className='text-slate-300 font-serif font-medium mb-4  text-xl content-center'>
+            <div className='absolute top-20 z-50 min-h-max  w-full '>
+                  <form
+                        className='mx-auto min-h-max w-[350px] flex-col rounded-xl border-2 border-green-600 px-5 py-5  dark:bg-slate-900 md:px-8 lg:px-12 '
+                        onSubmit={onSubmit}
+                  >
+                        <h3 className='my-4 content-center font-serif text-xl  font-medium text-slate-300'>
                               {data.showComp === 'showUpdateComp'
                                     ? 'Update Customer Data'
                                     : 'Create New Cutomer Data'}
@@ -31,7 +34,7 @@ const FormComp = () => {
                                     name={'customerName'}
                                     defaultValue={dVal.customerName}
                                     maxLength={20}
-                                    className='input'
+                                    className='input-class'
                                     onChange={onChange}
                                     required
                               />
@@ -43,7 +46,7 @@ const FormComp = () => {
                                     onClick={() => {
                                           setShowDatePicker(true);
                                     }}
-                                    className='input'
+                                    className='input-class'
                               >
                                     <h4>{dVal.startDate}</h4>
                               </div>
@@ -57,7 +60,7 @@ const FormComp = () => {
 
                         <div className='mb-5'>
                               <label className='label'>{`${data.listHead[3]} :`}</label>
-                              <h4 className='input'>{dVal.dueDate}</h4>
+                              <h4 className='input-class'>{dVal.dueDate}</h4>
                         </div>
 
                         <div className='mb-5'>
@@ -65,7 +68,7 @@ const FormComp = () => {
                               <select
                                     name={'payment'}
                                     defaultValue={dVal.payment}
-                                    className='input'
+                                    className='input-class'
                                     onChange={onChange}
                                     required
                               >
@@ -82,14 +85,14 @@ const FormComp = () => {
                                     type='number'
                                     name={'price'}
                                     defaultValue={dVal.price}
-                                    className='input'
+                                    className='input-class'
                                     onChange={onChange}
                                     required
                               />
                         </div>
-                        <div className='flex justify-between mt-5 '>
+                        <div className='mb-5 mt-10 flex justify-between '>
                               <button className='submit' type='submit'>
-                                    submit
+                                    Submit
                               </button>
 
                               <button

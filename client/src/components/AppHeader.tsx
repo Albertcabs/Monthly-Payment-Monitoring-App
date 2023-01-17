@@ -1,23 +1,22 @@
 import React from 'react';
 import { ListContext } from './App';
-import SearchComp from './SearchComp';
+import SearchComp from './search/SearchComp';
 
 import ButtonImgComp from './ButtonComp/ButtonImgComp';
 import IconIsp from './IconIspComp';
 
 import refreshSvg from '../img/refresh.svg';
-import settingSvg from '../img/setting.svg';
+
 import addListSvg from '../img/addList.svg';
-import menuSvg from '../img/menu.svg'
 
 const AppHeader = () => {
-      const show = React.useContext(ListContext);
-      const { data, setData } = show;
+      const{ data, setData }= React.useContext(ListContext);
+    
 
       const onclickHandler = (name: string) => {
             switch (name) {
                   case 'AddList': {
-                        setData({ ...data, showComp: 'showFormComp' });
+                        setData({ ...data, showComp: 'showForm' });
                         break;
                   }
                   case 'refrech': {
@@ -38,36 +37,28 @@ const AppHeader = () => {
       };
 
       return (
-            <div className='sticky top-0 h-[65px] w-full   flex-row z-30  '>
-                  <div className='flex w-full h-full  bg-green-900 items-center mr-2 '>
+            <div className=' flex h-full  w-full  items-center justify-center md:justify-between lg:justify-between'>
+                  <div className='flex items-center '>
                         <IconIsp />
-                        <h2 className='hidden  lg:inline-block flex-none   mr-4 text-lg text-yellow-50 '>
+                        <h2 className='mr-5 hidden flex-none  text-yellow-50 sm:inline-block sm:text-sm md:mr-10 md:inline-block md:text-base  lg:inline-block lg:text-lg  '>
                               Internet Provider Master List
                         </h2>
+                  </div>
+
+                  <div className='float-right mr-px flex items-center gap-2 py-2 sm:gap-3 md:mr-3 md:gap-4 lg:mr-4  lg:gap-5 '>
                         <SearchComp />
-                        <div className=' flex justify-evenly py-1 w-32 bg-green-900 '>
-                              <ButtonImgComp
-                                    imgSrc={addListSvg}
-                                    name='AddList'
-                                    onclick={onclickHandler}
-                                    classData='h-7'
-                              />
-                              <ButtonImgComp
-                                    imgSrc={refreshSvg}
-                                    name='Refrech'
-                                    onclick={onclickHandler}
-                                    classData=' h-7'
-                              />
-                              <ButtonImgComp
-                                    imgSrc={settingSvg}
-                                    name='Setting'
-                                    onclick={onclickHandler}
-                                    classData=' h-7'
-                              />
-                        </div>{' '}
-                        <div className=' w-8 h-8 '>
-                              <img src={menuSvg} alt='menu' />
-                        </div>
+                        <ButtonImgComp
+                              imgSrc={addListSvg}
+                              name='AddList'
+                              onclick={onclickHandler}
+                              classData='size-btn'
+                        />
+                        <ButtonImgComp
+                              imgSrc={refreshSvg}
+                              name='Refrech'
+                              onclick={onclickHandler}
+                              classData='size-btn'
+                        />
                   </div>
             </div>
       );

@@ -230,4 +230,3 @@ const newDateFormat = () => {
       return { thisMonth, nextMonth };
 };
 
-newDateFormat();

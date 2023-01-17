@@ -22,24 +22,31 @@ const IconMessageComp = ({ imgIndex, name }: IconProps) => {
       return (
             <div>
                   {imgIndex < 4 ? (
-                        <div className='inline-block lg:px-3 md:px-2.5 sm:px-1.5 py-1'>
+                        <div className='inline-block py-1 sm:px-1.5 md:px-2.5 lg:px-3 '>
                               {name}
                         </div>
                   ) : null}
                   {imgIndex >= 4 ? (
-                        <div className=' flex justify-center'>
-                              <div className='hidden lg:block md:inline-block   lg:px-3 md:px-2.5  py-1'>
+                        <div className=' flex justify-center '>
+                              <div className='hidden py-1 md:inline-block   md:px-2.5 lg:block  lg:px-3  '>
                                     {name}
                               </div>
                               <div
-                                    className={`lg:hidden md:hidden sm:block group relative `}
-                              >                                   
+                                    className={`group relative rounded-md bg-slate-500 sm:block md:hidden lg:hidden `}
+                              >
                                     <img
-                                          className='w-6 h-6 p-1 '
+                                          className='h-6 w-6 p-1'
                                           src={imgSrc}
                                           alt={name}
                                     />
-                                    <ToolTipComp name={name} posClass={`-top-0.5 ${imgIndex===4?'-left-16':'-left-10'} `} />
+                                    <ToolTipComp
+                                          name={name}
+                                          posClass={`-top-0.5 ${
+                                                imgIndex === 4
+                                                      ? '-left-16'
+                                                      : '-left-10'
+                                          } `}
+                                    />
                               </div>
                         </div>
                   ) : null}
@@ -47,4 +54,4 @@ const IconMessageComp = ({ imgIndex, name }: IconProps) => {
       );
 };
 
-export default React.memo(IconMessageComp);
+export default IconMessageComp;

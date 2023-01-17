@@ -1,11 +1,10 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ListContext } from '../components/App';
 
 const useAxios = () => {
-      const list = React.useContext(ListContext);
-      const { data, setData } = list;
-     
+      const { data, setData } = React.useContext(ListContext);
+
       const [resHead, setResHead] = useState<any[]>([]);
       const [resBody, setResBody] = useState<any[]>([]);
       const [errMessage, setErrMessage] = useState('');
@@ -14,9 +13,9 @@ const useAxios = () => {
       const fetchData = async () => {
             try {
                   const res = await axios.get('http://localhost:5050/');
-                  setResHead(Object.keys(res.data[0]));
-                  setResBody(res.data);
-                 
+                  const { head, body } = res.data;
+                  setResHead(head);
+                  setResBody(body);
             } catch (err: any) {
                   setErrMessage(err.message);
             } finally {

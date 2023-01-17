@@ -3,9 +3,8 @@ import { ListContext } from './App';
 import axios from 'axios';
 
 const DeleteComp = () => {
-      const act = React.useContext(ListContext);
-      const { data, setData } = act;
-      console.log(data.key);
+      const { data, setData }= React.useContext(ListContext);
+    
 
       const deleteHandler = async () => {
             try {
@@ -15,7 +14,6 @@ const DeleteComp = () => {
                               data: data.key,
                         }
                   );
-                  
             } catch (err: any) {
                   console.log('Error Message: ', err.message);
                   // setError(err.message);
@@ -29,11 +27,11 @@ const DeleteComp = () => {
             }
       };
       return (
-            <div className='absolute  inset-x-0 top-52 max-w-max  min-h-max  mx-auto  justify-center rounded-lg shadow bg-slate-200 py-5 px-5  '>
-                  <div className='bg-green-600 rounded-lg mb-5 px-5 py-4'>
+            <div className='absolute top-20 z-50 min-h-max  w-full '>
+                  <div className='mx-auto min-h-max w-[350px] flex-col rounded-xl border-2 border-green-600 px-6 py-2  dark:bg-slate-900 '>
                         <svg
                               aria-hidden='true'
-                              className='mx-auto mb-4 text-white w-14 h-14 dark:text-gray-200'
+                              className='mx-auto mb-4 h-12 w-12 text-white dark:text-gray-200'
                               fill='none'
                               stroke='orange'
                               viewBox='0 0 24 24'
@@ -46,53 +44,53 @@ const DeleteComp = () => {
                                     d='M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
                               ></path>
                         </svg>
-                        <h3 className='mb-5 mx-auto text-lg font-medium font-sans text-slate-900 text-center'>
+                        <h3 className='mx-auto mb-5 text-center font-mono text-base font-medium text-white'>
                               Are you sure you want to delete this Customer?
                         </h3>
-                  </div>
+                        <div className='py4  mx-auto my-3 min-h-max flex-row text-sm text-slate-900  '>
+                              {data.key.map((value, i) => {
+                                    return (
+                                          <div
+                                                key={i}
+                                                className='flex justify-center py-2  odd:bg-slate-400 even:bg-slate-500'
+                                          >
+                                                <section className='w-[38%] pl-5 '>
+                                                      {data.listHead[i]}
+                                                </section>
+                                                <section className='w-[1%] px-2  '>
+                                                      :
+                                                </section>
 
-                  <div
-                        id='delete-UL'
-                        className='flex-row  mx-auto my-3 border-2 border-slate-900'
-                  >
-                        {data.key.map((val: any, i) => {
-                              return (
-                                    <div
-                                          key={i}
-                                          className='w-auto flex text-lg font-normal bg-slate-600 text-white '
+                                                <section className='ml-10 w-[60%] font-semibold '>
+                                                      {value}
+                                                </section>
+                                          </div>
+                                    );
+                              })}
+                              <div className='mt-5 flex text-center '>
+                                    <button
+                                          onClick={deleteHandler}
+                                          className=' mr-2 w-5/6 rounded-lg  bg-red-500 px-5 py-2.5 text-sm  text-white hover:bg-red-800  focus:ring-4'
                                     >
-                                          <h2 className=' py-1 pl-5 w-44 '>
-                                                {/* {data.head[i]} */}
-                                          </h2>
-                                          <h2 className={`py-1 pl-2 `}>
-                                                {val}
-                                          </h2>
-                                    </div>
-                              );
-                        })}
-                  </div>
-                  <div className='text-center flex mt-5'>
-                        <button
-                              onClick={deleteHandler}
-                              className=' w-5/6 text-white text-sm  bg-red-500 hover:bg-red-800 focus:ring-4 rounded-lg  px-5 py-2.5  mr-2'
-                        >
-                              Yes, I'm sure
-                        </button>
+                                          Yes, I'm sure
+                                    </button>
 
-                        <button
-                              onClick={() => {
-                                    setData({
-                                          ...data,
-                                          key: [''],
-                                          showComp: 'none',
-                                    });
+                                    <button
+                                          onClick={() => {
+                                                setData({
+                                                      ...data,
+                                                      key: [''],
+                                                      showComp: 'none',
+                                                });
 
-                                    console.log('delete cancel');
-                              }}
-                              className='  w-5/6 text-white  text-sm bg-slate-600 hover:bg-slate-800 rounded-lg border border-gray-200  px-5 py-2.5  '
-                        >
-                              No, cancel
-                        </button>
+                                                console.log('delete cancel');
+                                          }}
+                                          className='  w-5/6 rounded-lg  border border-gray-200 bg-slate-600 px-5 py-2.5 text-sm  text-white hover:bg-slate-800  '
+                                    >
+                                          No, cancel
+                                    </button>
+                              </div>
+                        </div>
                   </div>
             </div>
       );
