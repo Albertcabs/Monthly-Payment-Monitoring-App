@@ -1,4 +1,4 @@
-import getNextMonth from './getNextMonth';
+import getNextMonthNum from './getNextMonthNum';
 
 const newDateFormat = () => {
    const date = new Date();
@@ -8,7 +8,7 @@ const newDateFormat = () => {
    // get this month
    const thisMonth = [month, day, year];
    //get next month
-   const nextMonth = getNextMonth([month, day, year]);
+   const nextMonth = getNextMonthNum([month, day, year]);
 
    return { thisMonth, nextMonth };
 };

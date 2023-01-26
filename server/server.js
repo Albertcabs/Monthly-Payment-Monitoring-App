@@ -7,10 +7,10 @@
 import express from 'express';
 import cors from 'cors';
 import {
-      readExcel,
-      writeRowExcel,
-      deleteRowExcel,
-      updateRowExcel,
+   readExcel,
+   writeRowExcel,
+   deleteRowExcel,
+   updateRowExcel,
 } from './xlsxFunction.js';
 
 const app = express();
@@ -31,41 +31,39 @@ app.use(express.json());
 
 // sent data to client side request
 app.get('/', async (req, res) => {
-      const data = readExcel();
-      res.send(data);
+   const data = readExcel();
+   // console.log(data);
+   res.send(data);
 });
 
 // recieve data from front end
 app.post('/create', async (req, res) => {
-      const data = req.body;
-      const newData = Object.values(data);
-      // console.log(data)
-      writeRowExcel(newData);
-      res.end('create custmer is done!');
+   const data = req.body;
+
+   const newData = Object.values(data);
+
+   writeRowExcel(newData);
+   res.end('create custmer is done!');
 });
 
 app.put('/update', async (req, res) => {
-      const data = req.body;
-
-      const newData = Object.values(data);
-
-      updateRowExcel(newData);
-
-      res.end('Update the Custmer data is done!');
+   const data = req.body;
+   updateRowExcel(data);
+   res.end('Update the Custmer data is done!');
 });
 
 // delete
 app.delete('/delete', async (req, res) => {
-      const data = Object.values(req.body);
-      //console.log(data)
-      deleteRowExcel(data);
-      res.end('delete cmd is done!');
+   const data = Object.values(req.body);
+   //console.log(data)
+   deleteRowExcel(data);
+   res.end('delete cmd is done!');
 });
 
 app.all('*', (req, res) => {
-      res.send('That route doesnt exist');
+   res.send('That route doesnt exist');
 });
 
 app.listen(PORT, () => {
-      console.log(`Server is listening on port: http://localhost:${PORT}`);
+   console.log(`Server is listening on port: http://localhost:${PORT}`);
 });

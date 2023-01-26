@@ -2,25 +2,17 @@ import React from 'react';
 import { ListContext } from './App';
 import ButtonImgComp from './ButtonComp/ButtonImgComp';
 import closeSvg from '../img/close.svg';
-import { getNextMonth } from '../function/formatDate';
+import getNextMonth from '../function/getNextMonth';
 import axios from 'axios';
-import { dValue, dValType } from '../types/Customer.type';
+import dateFormat from '../function/dateFormat';
 
 const UpdatePaymentComp = () => {
    const { data, setData } = React.useContext(ListContext);
 
-   const [val, setVal] = React.useState<dValType>(dValue);
-   const arr = Object.values(data.key);
+   const [val, setVal] = React.useState<any[]>([[0, 0, 0], '']);
 
    React.useEffect(() => {
-      setVal({
-         IDNum: arr[0],
-         customerName: arr[1],
-         startDate: arr[2],
-         dueDate: getNextMonth(arr[3]),
-         payment: arr[4],
-         price: arr[5],
-      });
+      setVal([getNextMonth(data.key[3]), data.key[0]]);
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
@@ -58,7 +50,7 @@ const UpdatePaymentComp = () => {
          }
       }
    };
-   console.log(val);
+
    return (
       <div className='absolute inset-x-0  top-52 mx-auto max-h-max min-w-max max-w-max justify-center  rounded-lg bg-slate-200 py-2 px-3 shadow   '>
          <div className='mt-2 flex justify-between border-b border-slate-300 pl-2 pb-5'>
@@ -82,7 +74,7 @@ const UpdatePaymentComp = () => {
             </section>
             <section className='mb-4  flex '>
                <h3 className='w-24'> Next Month :</h3>
-               <span>{val.dueDate}</span>
+               <span>{dateFormat(val[0])}</span>
             </section>
             <button
                onClick={() => onclickHandler('update')}

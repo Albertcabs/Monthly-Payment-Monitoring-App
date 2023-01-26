@@ -5,7 +5,7 @@ type TableHeadPros = {
 };
 const TableHead = ({ tHead, tHeadHeight }: TableHeadPros) => {
    return (
-      <div className='hide-tableSmScr z-0 min-h-max w-full text-slate-300'>
+      <div className='hide-SmScr z-0 min-h-max w-full text-slate-300'>
          {tHead.length > 0 ? (
             <div
                style={{ height: `${tHeadHeight + 'px'}` }}

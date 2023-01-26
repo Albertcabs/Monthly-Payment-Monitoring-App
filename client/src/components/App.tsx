@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormComp from './FormComp';
-
 import AppHeader from './AppHeader';
 import DeleteComp from './DeleteComp';
 import UpdatePaymentComp from './UpdatePaymentComp';
@@ -10,29 +9,29 @@ import LoadingComp from './LoadingComp';
 import ErrorMessage from './ErrorMessage';
 import TableHead from './tableComp/TableHead';
 import TableBody from './tableComp/TableBody';
+import ListComp from './tableComp/ListComp';
+import copyRight from '../img/copyright.svg';
 
 interface ActType {
    listHead: string[];
    customerName: string[];
-   key: string[];
+   key: any[];
    showComp: string;
    reload: boolean;
    indexName: number;
    newCustomer: string;
    activeSearch: boolean;
-   showIndicator: boolean;
 }
 
 const initState = {
    listHead: [''],
    customerName: [''],
-   key: [''],
+   key: [],
    showComp: 'none',
    reload: false,
    indexName: -0,
    newCustomer: '',
    activeSearch: false,
-   showIndicator: false,
 };
 
 type ContextType = {
@@ -48,9 +47,20 @@ export const ListContext = React.createContext<ContextType>({
 function App() {
    const [data, setData] = useState<ActType>(initState);
    const showComp = data.showComp;
-   const { headH, footerH, tBodyHeight, tRowHeight, tHeadHeight, winWidth } =
+
+   const { headH, footerH, bodyH, tRowHeight, tHeadHeight, winWidth } =
       useWinSize();
-   const { errMessage, loading, resBody, resHead } = useAxios();
+
+   const { errMessage, loading, resBody, resHead, names, dueDate } = useAxios(
+      data.reload
+   );
+   const search: boolean[] = React.useMemo(() => {
+      return new Array(resBody.length).fill(false);
+   }, [resBody.length]);
+
+   useEffect(() => {
+      setData({ ...data, reload: false });
+   }, [resBody]);
 
    return (
       <ListContext.Provider
@@ -59,27 +69,44 @@ function App() {
             setData,
          }}
       >
-         <div className={`width-class relative  mx-auto h-screen flex-row `}>
-            <AppHeader headH={headH} />
+         <div className={`h-screen  bg-slate-900 @container `}>
+            <div className='width-class relative  h-full flex-row border border-slate-600 '>
+               <AppHeader headH={headH} names={names} />
+               <ListComp
+                  listBody={resBody}
+                  listHead={resHead}
+                  lBodyHeight={bodyH}
+                  search={search}
+                  dueDate={dueDate}
+               />
+               <TableHead tHead={resHead} tHeadHeight={tHeadHeight} />
+               <TableBody
+                  tBody={resBody}
+                  search={search}
+                  dueDate={dueDate}
+                  tBodyHeight={bodyH}
+                  tRowHeight={tRowHeight}
+               />
+               {showComp === 'showForm' ? <FormComp resHead={resHead} /> : null}
+               {showComp === 'showDelete' ? (
+                  <DeleteComp resHead={resHead} />
+               ) : null}
+               {showComp === 'showUpdate' ? <UpdatePaymentComp /> : null}
+               {loading ? <LoadingComp /> : null}
+               {errMessage! ? <ErrorMessage /> : null}
 
-            <TableHead tHead={resHead} tHeadHeight={tHeadHeight} />
-            <TableBody
-               tBody={resBody}
-               tBodyHeight={tBodyHeight}
-               tRowHeight={tRowHeight}
-            />
-            {showComp === 'showForm' ? <FormComp /> : null}
-            {showComp === 'showDelete' ? <DeleteComp /> : null}
-            {showComp === 'showUpdate' ? <UpdatePaymentComp /> : null}
-            {loading ? <LoadingComp /> : null}
-            {errMessage! ? <ErrorMessage /> : null}
-
-            <footer
-               style={{ height: `${footerH + 'px'}` }}
-               className=' z-20 w-full dark:bg-green-800   '
-            >
-               <h3> Footer</h3>
-            </footer>
+               <footer
+                  style={{ height: `${footerH + 'px'}` }}
+                  className='absolute bottom-0 z-20  flex   w-full flex-row bg-green-800 '
+               >
+                  <div className='my-auto ml-3 flex h-5  flex-row'>
+                     <img src={copyRight} alt='copyRight' />
+                     <h6 className=' my-auto ml-1 text-xs text-slate-400'>
+                        2023 All Rights Reserved
+                     </h6>
+                  </div>
+               </footer>
+            </div>
          </div>
       </ListContext.Provider>
    );

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const useWinSize = () => {
    const [headH, setHeadH] = useState<number>(0);
    const [footerH, setFooterH] = useState<number>(0);
-   const [tBodyHeight, setTBodyHeight] = useState<number>(0);
+   const [bodyH, setBodyH] = useState<number>(0);
    const [tRowHeight, setTRowHeight] = useState<number>(0);
    const [tHeadHeight, setTHeadheight] = useState<number>(0);
    const [winWidth, setWinWidth] = useState<number>(0);
@@ -12,25 +12,27 @@ const useWinSize = () => {
    function getWindowSize() {
       const { innerWidth, innerHeight } = window;
 
-      let headTmp = 0.1;
+      let headTmp = 0;
+      let footerTmp = 0;
       let tRow = 37;
       let tHead = 40;
+      let bodyTmp = 0;
 
-      if (innerWidth < 640) {
-         headTmp = 0.04;
+      if (innerWidth < 672) {
+         headTmp = Math.floor(innerHeight * 0.05);
+         bodyTmp = Math.floor(innerHeight * 0.905);
+         footerTmp = innerHeight - bodyTmp - headTmp;
       } else {
-         headTmp = 0.054;
+         headTmp = Math.floor(innerHeight * 0.054);
+         bodyTmp = tRow * 22;
+         footerTmp = innerHeight - bodyTmp - headTmp - tHead;
       }
-      const tmp1 = Math.floor(innerHeight * headTmp);
 
-      setHeadH(tmp1);
+      setHeadH(headTmp);
       setTHeadheight(tHead);
       setTRowHeight(tRow);
-      let tbody = tRow * 22;
-      setTBodyHeight(tbody);
-
-      setFooterH(innerHeight - tbody - tmp1 - tHead);
-
+      setBodyH(bodyTmp);
+      setFooterH(footerTmp);
       setWinWidth(innerWidth);
    }
 
@@ -52,7 +54,7 @@ const useWinSize = () => {
       };
    }, []);
 
-   return { headH, footerH, tBodyHeight, tRowHeight, tHeadHeight, winWidth };
+   return { headH, footerH, bodyH, tRowHeight, tHeadHeight, winWidth };
 };
 
 export default useWinSize;

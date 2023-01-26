@@ -2,14 +2,15 @@ import React from 'react';
 import { ListContext } from './App';
 import SearchComp from './search/SearchComp';
 import ButtonImgComp from './ButtonComp/ButtonImgComp';
-import IconIsp from './IconIspComp';
 import refreshSvg from '../img/refresh.svg';
 import addListSvg from '../img/addList.svg';
+import ISPIcon from '../img/ISPIcon.png';
 
 type AppProps = {
    headH: number;
+   names: string[];
 };
-const AppHeader = ({ headH }: AppProps) => {
+const AppHeader = ({ headH, names }: AppProps) => {
    const { data, setData } = React.useContext(ListContext);
 
    const onclickHandler = (name: string) => {
@@ -38,17 +39,19 @@ const AppHeader = ({ headH }: AppProps) => {
    return (
       <div
          style={{ height: `${headH + 'px'}` }}
-         className=' flex h-full  w-full  items-center justify-between bg-green-700'
+         className=' flex h-full w-full  flex-row  items-center  justify-center bg-green-700 @5xl:justify-between @6xl:justify-between'
       >
-         <div className='flex items-center '>
-            <IconIsp />
-            <h2 className='mr-5 hidden flex-none  text-yellow-50 sm:inline-block sm:text-sm md:mr-10 md:inline-block md:text-base  lg:inline-block lg:text-lg  '>
+         <div className='ml-4 flex items-center  '>
+            <div className='size-btn mr-4 hidden @xs:block @sm:block @md:block @lg:block'>
+               <img src={ISPIcon} alt='logo' />
+            </div>
+            <h2 className='hide-SmScr  mr-5  flex-none  text-base  text-yellow-50 md:mr-10  lg:text-lg  '>
                Internet Provider Master List
             </h2>
          </div>
 
-         <div className='float-right mr-px flex items-center gap-2 py-2 sm:gap-3 md:mr-3 md:gap-4 lg:mr-4  lg:gap-5 '>
-            <SearchComp />
+         <div className='float-right mr-3 flex min-w-max items-center gap-2.5 py-2 '>
+            <SearchComp names={names} />
             <ButtonImgComp
                imgSrc={addListSvg}
                name='AddList'

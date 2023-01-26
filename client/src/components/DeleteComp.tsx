@@ -1,8 +1,10 @@
 import React from 'react';
 import { ListContext } from './App';
 import axios from 'axios';
-
-const DeleteComp = () => {
+type Props = {
+   resHead: string[];
+};
+const DeleteComp = ({ resHead }: Props) => {
    const { data, setData } = React.useContext(ListContext);
 
    const deleteHandler = async () => {
@@ -51,7 +53,7 @@ const DeleteComp = () => {
                         className='flex justify-center py-2  odd:bg-slate-400 even:bg-slate-500'
                      >
                         <section className='w-[38%] pl-5 '>
-                           {data.listHead[i]}
+                           {resHead[i]}
                         </section>
                         <section className='w-[1%] px-2  '>:</section>
 

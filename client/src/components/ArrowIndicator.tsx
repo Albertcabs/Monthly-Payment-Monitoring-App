@@ -1,17 +1,6 @@
-type ArrowProps = {
-   topP: number;
-};
-const ArrowIndicator = ({ topP }: ArrowProps) => {
-   let topPos = 0;
-   if (topP === 0) {
-      topPos = 45;
-   } else {
-      topPos = topP + 60;
-   }
-
+const ArrowIndicator = () => {
    return (
       <div
-         style={{ top: `${topPos + 'px'}` }}
          className={`absolute flex h-8 border-b border-green-500 sm:left-[26px] sm:w-[500px]  md:left-[30px]  md:w-[615px] lg:left-[38px] lg:w-[740px]`}
       >
          <svg

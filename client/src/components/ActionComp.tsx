@@ -48,27 +48,27 @@ const ActionComp = ({ keys }: ButtonProps) => {
 
    return (
       <>
-         <div className='flex flex-grow justify-evenly'>
+         <div className='flex flex-grow flex-row justify-evenly'>
             {/* delete Icon as Button*/}
             <ButtonImgComp
                imgSrc={deleteSvg}
                name='Delete List'
                onclick={onclickHandler}
-               classData='w-6 h-6 '
+               classData='w-6 h-6'
             />
 
             <ButtonImgComp
                imgSrc={updateSvg}
                name='Update List'
                onclick={onclickHandler}
-               classData='w-6 h-6 '
+               classData='w-6 h-6'
             />
 
             <ButtonImgComp
                imgSrc={paidSvg}
                name='Update Pay'
                onclick={onclickHandler}
-               classData='w-6 h-6 '
+               classData='w-6 h-6'
             />
 
             {/* update Icon as Button*/}

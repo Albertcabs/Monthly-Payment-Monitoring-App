@@ -2,8 +2,11 @@ import React from 'react';
 import { useForm } from '../hooks/useForm';
 import { ListContext } from './App';
 import DatePicker from './pickerDate/DatePicker';
-
-const FormComp = () => {
+import dateFormat from '../function/dateFormat';
+type Props = {
+   resHead: string[];
+};
+const FormComp = ({ resHead }: Props) => {
    const { data, setData } = React.useContext(ListContext);
    const [dateValue, setDateValue] = React.useState<number[]>([]);
    const [showDatePicker, setShowDatePicker] = React.useState(false);
@@ -13,21 +16,20 @@ const FormComp = () => {
 
    // a submit function that will execute upon form submission
    return (
-      <div className='absolute top-20 z-50 min-h-max  w-full '>
+      <div className='absolute top-12 z-50 min-h-max  w-full '>
          <form
-            className='mx-auto min-h-max w-[350px] flex-col rounded-xl border-2 border-green-600 px-5 py-5  dark:bg-slate-900 md:px-8 lg:px-12 '
+            className='form-width mx-auto min-h-max flex-col rounded-xl border-2 border-green-600 px-8 py-5  dark:bg-slate-900 '
             onSubmit={onSubmit}
          >
             {/* {show action title} */}
-            <h3 className='my-5 content-center font-serif text-xl  font-medium text-slate-300'>
+            <h3 className='my-5 content-center font-serif text-base   font-medium text-slate-300    @4xl:text-lg @5xl:text-lg'>
                {data.showComp === 'showUpdateComp'
                   ? 'Update Customer Data'
                   : 'Create New Cutomer Data'}
             </h3>
-
             {/* {set Name } */}
             <div className='mb-5'>
-               <label className='label'>{`${data.listHead[1]}  :`}</label>
+               <label className='label'>{`${resHead[1]}  :`}</label>
                <input
                   type='text'
                   name={'customerName'}
@@ -39,22 +41,21 @@ const FormComp = () => {
                      });
                   }}
                   maxLength={20}
-                  className='input-class'
+                  className='input-class size-btn'
                   onChange={onChange}
                   required
                />
             </div>
-
             {/* {set start Date} */}
             <div className='relative mb-5'>
-               <label className='label'>{`${data.listHead[2]} :`}</label>
+               <label className='label'>{`${resHead[2]} :`}</label>
                <div
                   onClick={() => {
                      setShowDatePicker(true);
                   }}
-                  className='input-class'
+                  className='input-class size-btn'
                >
-                  <h4>{dVal.startDate}</h4>
+                  <h4 className='h-full pt-1 text-sm'>{dVal.startDate}</h4>
                </div>
                {showDatePicker ? (
                   <DatePicker
@@ -62,24 +63,26 @@ const FormComp = () => {
                      setShowDatePicker={setShowDatePicker}
                   />
                ) : null}
-            </div>
-
+            </div>{' '}
             {/* {monitor due Date after setiing the start date} */}
             <div className='mb-5'>
-               <label className='label'>{`${data.listHead[3]} :`}</label>
-               <h4 className='input-class'>{dVal.dueDate}</h4>
+               <label className='label'>{`${resHead[3]} :`}</label>
+               <div className='input-class size-btn '>
+                  <h4 className='h-full pt-1 text-sm'>
+                     {dateFormat(dVal.dueDate)}
+                  </h4>
+               </div>
             </div>
-
             {/* {Set Payment type} */}
             <div className='mb-5'>
-               <label className='label'>{`${data.listHead[4]} :`}</label>
+               <label className='label'>{`${resHead[4]} :`}</label>
                <select
                   name={'payment'}
                   value={dVal.payment}
                   onFocus={() => {
                      setDVal({ ...dVal, payment: '' });
                   }}
-                  className='input-class'
+                  className='input-class size-btn'
                   onChange={onChange}
                   required
                >
@@ -89,15 +92,14 @@ const FormComp = () => {
                   <option value='Yearly'>Yearly</option>
                </select>
             </div>
-
             {/* {set Price of Service} */}
             <div className='mb-5'>
-               <label className='label'>{`${data.listHead[5]} :`}</label>
+               <label className='label'>{`${resHead[5]} :`}</label>
                <input
                   type='number'
                   name={'price'}
                   value={dVal.price}
-                  className='input-class'
+                  className='input-class size-btn'
                   onFocus={() => {
                      setDVal({ ...dVal, price: '' });
                   }}
@@ -105,7 +107,6 @@ const FormComp = () => {
                   required
                />
             </div>
-
             {/* {submit and canscel button} */}
             <div className='mb-5 mt-10 flex justify-between '>
                <button className='submit' type='submit'>

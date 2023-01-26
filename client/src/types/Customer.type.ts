@@ -43,7 +43,7 @@ export type dValType = {
    IDNum: string;
    customerName: string;
    startDate: string;
-   dueDate: string;
+   dueDate: number[];
    payment: string;
    price: string;
 };
@@ -52,7 +52,7 @@ export const dValue = {
    IDNum: '',
    customerName: '',
    startDate: '',
-   dueDate: '',
+   dueDate: [0, 0, 0],
    payment: '',
    price: '',
 };

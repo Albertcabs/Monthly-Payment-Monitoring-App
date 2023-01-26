@@ -1,17 +1,9 @@
-import { monthMap } from '../types/Customer.type';
-const getNextMonth = (dateArr: string) => {
-   let month = 0;
-   let day = 0;
-   let year = 0;
-   if (dateArr.length === 10) {
-      month = monthMap.findIndex((val) => val === dateArr.slice(0, 3));
-      day = Number(dateArr.slice(4, 5));
-      year = Number(dateArr.slice(5, 10));
-   } else {
-      month = monthMap.findIndex((val) => val === dateArr.slice(0, 3));
-      day = Number(dateArr.slice(4, 6));
-      year = Number(dateArr.slice(7, 11));
-   }
+import React from 'react';
+
+const getNextMonthNum = (date: number[]) => {
+   let month = date[0];
+   let day = date[1];
+   let year = date[2];
 
    // get nextMonth
    let nextMonth = [0, 0, 0];
@@ -35,4 +27,4 @@ const getNextMonth = (dateArr: string) => {
    return nextMonth;
 };
 
-export default getNextMonth;
+export default getNextMonthNum;

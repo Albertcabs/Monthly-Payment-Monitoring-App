@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-
 import axios from 'axios';
 import { ListContext } from '../components/App';
-import getNextMonth from '../function/getNextMonth';
-
 import newDateFormat from '../function/newDateFormat';
 import dateFormat from '../function/dateFormat';
 import { dValue, dValType } from '../types/Customer.type';
+import getNextMonthNum from '../function/getNextMonthNum';
+import getNextMonth from '../function/getNextMonth';
 
 // useForm functional component
 
@@ -25,7 +24,7 @@ export const useForm = (dateValue: number[]) => {
             IDNum: data.key[0],
             customerName: data.key[1],
             startDate: data.key[2],
-            dueDate: data.key[3],
+            dueDate: getNextMonth(data.key[2]),
             payment: data.key[4],
             price: data.key[5],
          });
@@ -40,7 +39,7 @@ export const useForm = (dateValue: number[]) => {
             IDNum: ID.slice(0, 7),
             customerName: '',
             startDate: dateFormat(thisMonth),
-            dueDate: dateFormat(nextMonth),
+            dueDate: nextMonth,
             payment: 'Monthly',
             price: '1200',
          });
@@ -53,12 +52,10 @@ export const useForm = (dateValue: number[]) => {
 
    useEffect(() => {
       if (dateValue.length !== 0) {
-         const nwDate = dateFormat(dateValue);
-         const nxtDate = dateFormat(getNextMonth(dateValue));
          setDVal({
             ...dVal,
-            startDate: nwDate,
-            dueDate: nxtDate,
+            startDate: dateFormat(dateValue),
+            dueDate: getNextMonthNum(dateValue),
          });
       }
 
