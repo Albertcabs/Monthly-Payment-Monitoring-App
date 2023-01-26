@@ -40,8 +40,7 @@ const ListBodyComp = ({
                               key={i}
                               className={`flex py-1 pl-2 ${
                                  i !== 0 ? 'justify-center' : 'justify-start'
-                              }
-                                                                  `}
+                              } `}
                            >
                               <section
                                  className={`${i !== 0 ? 'w-16' : 'w-10'}`}

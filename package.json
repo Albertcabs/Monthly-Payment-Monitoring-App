@@ -1,0 +1,22 @@
+{
+   "name": "internet-provider-list-app-typescript",
+   "version": "1.0.0",
+   "description": "",
+   "scripts": {
+      "start": "concurrently \"cd ./server && npm run server\" \"cd ./client && npm run dev\""
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Albertcabs/Internet-Proviter-Payment-Monitoring-App.git"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/Albertcabs/Internet-Proviter-Payment-Monitoring-App/issues"
+   },
+   "homepage": "https://github.com/Albertcabs/Internet-Proviter-Payment-Monitoring-App#readme",
+   "devDependencies": {
+      "concurrently": "^7.6.0"
+   }
+}
