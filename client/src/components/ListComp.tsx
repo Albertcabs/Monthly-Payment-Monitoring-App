@@ -1,6 +1,6 @@
 import React from 'react';
-import ActionComp from '../ActionComp';
-import useSearchNames from '../../hooks/useSearchNames';
+import ActionComp from './ActionComp';
+import useSearchNames from '../hooks/useSearchNames';
 
 type ListProps = {
    listBody: string[][];
@@ -16,22 +16,39 @@ const ListBodyComp = ({
    search,
    dueDate,
 }: ListProps) => {
-   const { tRef, onscrollHandler } = useSearchNames(search);
+   const [clearSearch, setClearSearch] = React.useState(false);
+   const { tRef, clickScrollHandler } = useSearchNames(
+      search,
+      clearSearch,
+      setClearSearch
+   );
+
    return (
       <div
          style={{ height: `${lBodyHeight + 'px'}` }}
          ref={tRef}
          className='hide-listBigScreen  w-full overflow-y-scroll text-sm text-slate-400'
-         onScroll={onscrollHandler}
+         onScroll={() => {
+            setClearSearch(true);
+            clickScrollHandler();
+         }}
       >
          {listBody.map((val, index) => {
             return (
-               <div id={val[0]} key={index} className={`mt-3`}>
+               <div
+                  id={val[0]}
+                  key={index}
+                  className={`mt-3`}
+                  onClick={() => {
+                     setClearSearch(true);
+                     clickScrollHandler();
+                  }}
+               >
                   <div
-                     className={`mx-auto flex max-h-max w-[260px] flex-col rounded-2xl bg-slate-700  px-4 py-1 pt-2  ${
+                     className={`mx-auto flex max-h-max w-[260px] flex-col rounded-2xl bg-slate-900  px-4 py-1 pt-2  ${
                         search[index]
                            ? 'border-2 border-green-500 text-white'
-                           : 'border-2 border-slate-400 text-slate-400'
+                           : 'border border-yellow-400 text-slate-400'
                      } `}
                   >
                      {val.map((value, i) => {

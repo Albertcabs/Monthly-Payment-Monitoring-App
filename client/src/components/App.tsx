@@ -7,9 +7,9 @@ import useAxios from '../hooks/useAxios';
 import useWinSize from '../hooks/useWinSize';
 import LoadingComp from './LoadingComp';
 import ErrorMessage from './ErrorMessage';
-import TableHead from './tableComp/TableHead';
-import TableBody from './tableComp/TableBody';
-import ListComp from './tableComp/ListComp';
+import TableHead from './TableHead';
+import TableBody from './TableBody';
+import ListComp from './ListComp';
 import copyRight from '../img/copyright.svg';
 
 interface ActType {
@@ -45,7 +45,8 @@ export const ListContext = React.createContext<ContextType>({
 });
 
 function App() {
-   const [data, setData] = useState<ActType>(initState);
+   const [data, setData] = React.useState<ActType>(initState);
+
    const showComp = data.showComp;
 
    const { headH, footerH, bodyH, tRowHeight, tHeadHeight, winWidth } =
@@ -63,14 +64,11 @@ function App() {
    }, [resBody]);
 
    return (
-      <ListContext.Provider
-         value={{
-            data,
-            setData,
-         }}
-      >
-         <div className={`h-screen  bg-slate-900 @container `}>
-            <div className='width-class relative  h-full flex-row border border-slate-600 '>
+      <ListContext.Provider value={{ data, setData }}>
+         <div
+            className={`h-screen   bg-slate-400 @container dark:bg-slate-500 `}
+         >
+            <div className='width-class dark:border-border-600  relative h-full flex-row border border-slate-400 '>
                <AppHeader headH={headH} names={names} />
                <ListComp
                   listBody={resBody}
@@ -87,7 +85,9 @@ function App() {
                   tBodyHeight={bodyH}
                   tRowHeight={tRowHeight}
                />
-               {showComp === 'showForm' ? <FormComp resHead={resHead} /> : null}
+               {showComp === 'showForm' || showComp === 'showFormUpdate' ? (
+                  <FormComp resHead={resHead} />
+               ) : null}
                {showComp === 'showDelete' ? (
                   <DeleteComp resHead={resHead} />
                ) : null}
@@ -97,7 +97,7 @@ function App() {
 
                <footer
                   style={{ height: `${footerH + 'px'}` }}
-                  className='absolute bottom-0 z-20  flex   w-full flex-row bg-green-800 '
+                  className='absolute -bottom-1 z-20  flex   w-full flex-row bg-green-800 '
                >
                   <div className='my-auto ml-3 flex h-5  flex-row'>
                      <img src={copyRight} alt='copyRight' />

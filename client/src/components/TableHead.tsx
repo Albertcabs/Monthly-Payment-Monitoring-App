@@ -1,4 +1,4 @@
-import { widT } from '../../types/Customer.type';
+import { widT } from '../types/Customer.type';
 type TableHeadPros = {
    tHead: string[];
    tHeadHeight: number;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from '../hooks/useForm';
 import { ListContext } from './App';
-import DatePicker from './pickerDate/DatePicker';
+import DatePicker from './DatePicker';
 import dateFormat from '../function/dateFormat';
 type Props = {
    resHead: string[];

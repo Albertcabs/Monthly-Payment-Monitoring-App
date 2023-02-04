@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListContext } from './App';
-import SearchComp from './search/SearchComp';
-import ButtonImgComp from './ButtonComp/ButtonImgComp';
+import SearchComp from './SearchComp';
+import ButtonImgComp from './ButtonImgComp';
 import refreshSvg from '../img/refresh.svg';
 import addListSvg from '../img/addList.svg';
 import ISPIcon from '../img/ISPIcon.png';
@@ -20,7 +20,6 @@ const AppHeader = ({ headH, names }: AppProps) => {
             break;
          }
          case 'refrech': {
-            console.log('refrech button');
             setData({ ...data, reload: true });
             break;
          }
@@ -39,30 +38,30 @@ const AppHeader = ({ headH, names }: AppProps) => {
    return (
       <div
          style={{ height: `${headH + 'px'}` }}
-         className=' flex h-full w-full  flex-row  items-center  justify-center bg-green-700 @5xl:justify-between @6xl:justify-between'
+         className=' flex h-full w-full  flex-row  items-center  bg-green-700 justify-center text-white  @2xl:justify-between  @3xl:justify-between  @4xl:justify-between  @5xl:justify-between  @6xl:justify-between  @7xl:justify-between '
       >
-         <div className='ml-4 flex items-center  '>
-            <div className='size-btn mr-4 hidden @xs:block @sm:block @md:block @lg:block'>
+         <div className='ml-4 flex flex-row items-center  '>
+            <div className='w-8 h-7'>
                <img src={ISPIcon} alt='logo' />
             </div>
-            <h2 className='hide-SmScr  mr-5  flex-none  text-base  text-yellow-50 md:mr-10  lg:text-lg  '>
+            <h2 className='mx-5  flex-none  text-base  md:mr-10  lg:text-lg hide-SmScr '>
                Internet Provider Master List
             </h2>
          </div>
 
-         <div className='float-right mr-3 flex min-w-max items-center gap-2.5 py-2 '>
+         <div className='float-right mr-3 flex min-w-max items-center gap-4 py-2 '>
             <SearchComp names={names} />
             <ButtonImgComp
                imgSrc={addListSvg}
                name='AddList'
                onclick={onclickHandler}
-               classData='size-btn'
+               classData='w-7 h-7'
             />
             <ButtonImgComp
                imgSrc={refreshSvg}
                name='Refrech'
                onclick={onclickHandler}
-               classData='size-btn'
+               classData='w-7 h-7'
             />
          </div>
       </div>

@@ -10,22 +10,18 @@ const useWinSize = () => {
 
    //get size window
    function getWindowSize() {
-      const { innerWidth, innerHeight } = window;
+      const screenW = window.innerWidth;
+      const screenH = window.innerHeight;
 
-      let headTmp = 0;
-      let footerTmp = 0;
-      let tRow = 37;
+      let headTmp = 45;
+      let footerTmp = 38;
+      let tRow = 35;
       let tHead = 40;
       let bodyTmp = 0;
-
-      if (innerWidth < 672) {
-         headTmp = Math.floor(innerHeight * 0.05);
-         bodyTmp = Math.floor(innerHeight * 0.905);
-         footerTmp = innerHeight - bodyTmp - headTmp;
+      if (screenW < 672) {
+         bodyTmp = screenH - footerTmp - headTmp;
       } else {
-         headTmp = Math.floor(innerHeight * 0.054);
-         bodyTmp = tRow * 22;
-         footerTmp = innerHeight - bodyTmp - headTmp - tHead;
+         bodyTmp = screenH - footerTmp - headTmp - tHead;
       }
 
       setHeadH(headTmp);
@@ -33,7 +29,7 @@ const useWinSize = () => {
       setTRowHeight(tRow);
       setBodyH(bodyTmp);
       setFooterH(footerTmp);
-      setWinWidth(innerWidth);
+      setWinWidth(screenW);
    }
 
    // get value during start up /refresh

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import searchSvg from '../../img/search.svg';
-import { useSearch } from '../../hooks/useSearch';
-import { ListContext } from '../App';
+import searchSvg from '../img/search.svg';
+import { useSearch } from '../hooks/useSearch';
+import { ListContext } from './App';
 type Props = {
    names: string[];
 };
@@ -26,18 +26,18 @@ const SearchComp = ({ names }: Props) => {
    };
 
    return (
-      <div className='float-right block'>
-         <form className='w-60 '>
+      <div className='float-right block w-64 '>
+         <form className='w-64 '>
             <label className='sr-only pl-5 text-sm text-gray-900 dark:text-white '>
                Search
             </label>
             <div className='relative'>
-               <div className='absolute inset-y-0 right-0 flex items-center p-1  '>
+               <div className='absolute inset-y-0 right-0 flex items-center p-1 w-7 h-7  '>
                   <img src={searchSvg} alt='Add List' />
                </div>
                <input
                   type='text'
-                  className='input-class size-btn '
+                  className='input-class input-bg size-btn '
                   onChange={onchange}
                   onFocus={() => setSelectVal('')}
                   value={selectVal}
@@ -48,7 +48,7 @@ const SearchComp = ({ names }: Props) => {
          {showSearch ? (
             <div
                onMouseLeave={() => setShowSearch(false)}
-               className='absolute  z-30 mt-1 max-h-max min-w-fit flex-row  rounded-xl border border-yellow-600 bg-slate-600 py-1 px-2 text-sm text-white'
+               className='absolute  z-30 mt-1 max-h-max W-full flex-row  rounded-xl border border-yellow-600 bg-slate-600 py-1 px-2 text-sm text-white'
             >
                {searchValue.map((val, i) => {
                   return (

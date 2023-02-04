@@ -1,6 +1,6 @@
 import React from 'react';
-import { monthMap } from '../../types/Customer.type';
-import createDataDay from './createDataDay';
+import { monthMap } from '../types/Customer.type';
+import createDataDay from '../function/createDataDay';
 type MyDateProps = {
    setDateValue: React.Dispatch<React.SetStateAction<number[]>>;
    setShowDatePicker: React.Dispatch<React.SetStateAction<boolean>>;

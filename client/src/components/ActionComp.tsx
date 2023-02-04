@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListContext } from './App';
-import ButtonImgComp from './ButtonComp/ButtonImgComp';
+import ButtonImgComp from './ButtonImgComp';
 import deleteSvg from '../img/delete.svg';
 import updateSvg from '../img/update.svg';
 import paidSvg from '../img/paid.svg';

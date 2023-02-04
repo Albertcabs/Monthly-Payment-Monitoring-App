@@ -1,26 +1,24 @@
 import React from 'react';
 import { ListContext } from './App';
-import ButtonImgComp from './ButtonComp/ButtonImgComp';
+import ButtonImgComp from './ButtonImgComp';
 import closeSvg from '../img/close.svg';
 import getNextMonth from '../function/getNextMonth';
-import axios from 'axios';
+
 import dateFormat from '../function/dateFormat';
 
 const UpdatePaymentComp = () => {
    const { data, setData } = React.useContext(ListContext);
 
-   const [val, setVal] = React.useState<any[]>([[0, 0, 0], '']);
+   const [val, setVal] = React.useState<[string, number[]]>(['', [0, 0, 0]]);
 
    React.useEffect(() => {
-      setVal([getNextMonth(data.key[3]), data.key[0]]);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setVal([data.key[0], getNextMonth(data.key[3])]);
    }, []);
 
    async function updateNextMonth() {
       let isDone = false;
       try {
-         const res = await axios.put('http://localhost:5050/update', val);
-         isDone = res.status === 200 ? true : false;
+         isDone = window.api.payed(val);
       } catch (error: any) {
          alert('opps!!Something went wrong');
          console.log(error.message);
@@ -52,18 +50,18 @@ const UpdatePaymentComp = () => {
    };
 
    return (
-      <div className='absolute inset-x-0  top-52 mx-auto max-h-max min-w-max max-w-max justify-center  rounded-lg bg-slate-200 py-2 px-3 shadow   '>
-         <div className='mt-2 flex justify-between border-b border-slate-300 pl-2 pb-5'>
+      <div className='absolute inset-x-0  top-52 mx-auto max-h-max min-w-max max-w-max justify-center  rounded-lg bg-slate-800 py-2 px-3 shadow  text-white font-serif text-sm   border-2 border-green-600'>
+         <div className='mt-2 flex justify-between border-b border-slate-600 pl-2 pb-3'>
             <h3 className='text-lg'>Monthly Payment</h3>
             <ButtonImgComp
                imgSrc={closeSvg}
                name='close'
                onclick={onclickHandler}
-               classData='w-7'
+               classData='w-6 h-6 bg-slate-900'
             />
          </div>
 
-         <div className='hi mx-auto mt-5 py-2 px-5 text-sm'>
+         <div className='mx-auto mt-4 py-2 px-5 text-sm'>
             <section className='mb-4  flex '>
                <h4 className='w-24'>Name : </h4>
                <span>{data.key[1]}</span>
@@ -74,11 +72,11 @@ const UpdatePaymentComp = () => {
             </section>
             <section className='mb-4  flex '>
                <h3 className='w-24'> Next Month :</h3>
-               <span>{dateFormat(val[0])}</span>
+               <span>{dateFormat(val[1])}</span>
             </section>
             <button
                onClick={() => onclickHandler('update')}
-               className=' x-auto mt-5  rounded-lg bg-blue-800 px-5 py-2.5  text-sm text-white hover:bg-blue-500 focus:ring-4 '
+               className=' ml-3 mt-5  rounded-lg bg-blue-800 px-6 py-2.5  text-sm  hover:bg-blue-500 focus:ring-4 '
             >
                Payed this Month
             </button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import ToolTipComp from './ToolTipComp';
-import paymentSvg from '../../img/payment.svg';
-import priceSvg from '../../img/price.svg';
+import paymentSvg from '../img/payment.svg';
+import priceSvg from '../img/price.svg';
 type IconProps = {
    imgIndex: number;
    name: string;
