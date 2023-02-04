@@ -18,12 +18,12 @@ const FormComp = ({ resHead }: Props) => {
    return (
       <div className='absolute top-12 z-50 min-h-max  w-full '>
          <form
-            className='form-width mx-auto min-h-max flex-col rounded-xl border-2 border-green-600 px-8 py-5  dark:bg-slate-900 '
+            className='form-width mx-auto min-h-max flex-col rounded-xl border-2 border-green-600 px-8 py-3  dark:bg-slate-900 '
             onSubmit={onSubmit}
          >
             {/* {show action title} */}
-            <h3 className='my-5 content-center font-serif text-base   font-medium text-slate-300    @4xl:text-lg @5xl:text-lg'>
-               {data.showComp === 'showUpdateComp'
+            <h3 className='my-3 content-center font-serif text-xl   font-medium text-slate-300 '>
+               {data.showComp === 'showFormUpdate'
                   ? 'Update Customer Data'
                   : 'Create New Cutomer Data'}
             </h3>
@@ -53,7 +53,7 @@ const FormComp = ({ resHead }: Props) => {
                   onClick={() => {
                      setShowDatePicker(true);
                   }}
-                  className='input-class size-btn'
+                  className='input-class  size-btn'
                >
                   <h4 className='h-full pt-1 text-sm'>{dVal.startDate}</h4>
                </div>
@@ -67,7 +67,7 @@ const FormComp = ({ resHead }: Props) => {
             {/* {monitor due Date after setiing the start date} */}
             <div className='mb-5'>
                <label className='label'>{`${resHead[3]} :`}</label>
-               <div className='input-class size-btn '>
+               <div className='input-class  size-btn '>
                   <h4 className='h-full pt-1 text-sm'>
                      {dateFormat(dVal.dueDate)}
                   </h4>
@@ -82,7 +82,7 @@ const FormComp = ({ resHead }: Props) => {
                   onFocus={() => {
                      setDVal({ ...dVal, payment: '' });
                   }}
-                  className='input-class size-btn'
+                  className='input-class  size-btn'
                   onChange={onChange}
                   required
                >
@@ -108,7 +108,7 @@ const FormComp = ({ resHead }: Props) => {
                />
             </div>
             {/* {submit and canscel button} */}
-            <div className='mb-5 mt-10 flex justify-between '>
+            <div className='mb-5 mt-5 flex justify-between '>
                <button className='submit' type='submit'>
                   Submit
                </button>

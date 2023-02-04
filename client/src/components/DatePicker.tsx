@@ -1,6 +1,8 @@
 import React from 'react';
 import { monthMap } from '../types/Customer.type';
 import createDataDay from '../function/createDataDay';
+import closeSvg from '../img/close.svg';
+import ButtonImgComp from './ButtonImgComp';
 type MyDateProps = {
    setDateValue: React.Dispatch<React.SetStateAction<number[]>>;
    setShowDatePicker: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,6 +40,11 @@ const DatePicker = ({ setDateValue, setShowDatePicker }: MyDateProps) => {
             break;
          }
 
+         case 'close picker': {
+            setShowDatePicker(false);
+            break;
+         }
+
          default: {
             console.log('no action selected');
             break;
@@ -46,12 +53,15 @@ const DatePicker = ({ setDateValue, setShowDatePicker }: MyDateProps) => {
    };
 
    const DaysData = React.useCallback(() => {
-      let { dataBox, firsDay, endDayMonth } = createDataDay(year, month);
-      const elemBnt = firsDay + endDayMonth;
+      let { dataBox, firstDay, endDayMonth } = createDataDay(year, month);
 
-      const nowYear = newDate.getFullYear();
-      const nowMonth = newDate.getMonth();
-      const mDay = newDate.getDate();
+      const nowY = newDate.getFullYear();
+      const nowM = newDate.getMonth();
+      const today = newDate.getDate();
+
+      // const nextY = year > nowY;
+      // const thisY_nextM = year === nowY && month > nowM;
+      const thisYM = year === nowY && month === nowM; // this is year & month
 
       return (
          <>
@@ -61,15 +71,14 @@ const DatePicker = ({ setDateValue, setShowDatePicker }: MyDateProps) => {
                      key={i + 'as'}
                      className=' h-full w-full border-r border-b border-slate-800 bg-slate-900  text-center text-xs'
                   >
-                     {nowYear > year ||
-                     (nowYear === year && nowMonth > month) ||
-                     (nowYear >= year &&
-                        nowMonth === month &&
-                        mDay >= val &&
-                        elemBnt > i) ? (
+                     {!(i >= firstDay && i < endDayMonth + firstDay) ? (
+                        <div key={i + 'a'} className={`dateBtn-class`}>
+                           {val}
+                        </div>
+                     ) : (
                         <div
                            className={`m-1 cursor-pointer py-1.5 text-white hover:bg-green-600 ${
-                              val === mDay && year === nowYear
+                              val === today && thisYM
                                  ? 'bg-green-600'
                                  : 'bg-slate-600'
                            }`}
@@ -77,16 +86,7 @@ const DatePicker = ({ setDateValue, setShowDatePicker }: MyDateProps) => {
                         >
                            {val}
                         </div>
-                     ) : null}
-                     {nowYear < year ||
-                     (nowYear === year && nowMonth < month) ||
-                     (nowYear <= year &&
-                        nowMonth === month &&
-                        (mDay < val || elemBnt <= i)) ? (
-                        <div key={i + 'a'} className={`dateBtn-class`}>
-                           {val}
-                        </div>
-                     ) : null}
+                     )}
                   </div>
                );
             })}
@@ -108,7 +108,13 @@ const DatePicker = ({ setDateValue, setShowDatePicker }: MyDateProps) => {
    return (
       <div className='absolute top-[50px] -left-0 z-50'>
          <div className='my-2 max-h-max max-w-max flex-col items-center justify-center rounded-lg  bg-slate-500 pb-2'>
-            <div className='mx-auto flex h-[20px] w-full items-center justify-center  pt-7 pb-3 '>
+            <ButtonImgComp
+               imgSrc={closeSvg}
+               name='close picker'
+               onclick={onclickHandler}
+               classData='w-5 h-5 float-right mt-1 mr-1'
+            />
+            <div className='mx-auto flex h-[20px] w-full items-center justify-center  pt-3 pb-3 '>
                <svg
                   xmlns='http://www.w3.org/2000/svg'
                   height='48'

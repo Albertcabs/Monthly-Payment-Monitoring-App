@@ -38,13 +38,13 @@ const AppHeader = ({ headH, names }: AppProps) => {
    return (
       <div
          style={{ height: `${headH + 'px'}` }}
-         className=' flex h-full w-full  flex-row  items-center  bg-green-700 justify-center text-white  @2xl:justify-between  @3xl:justify-between  @4xl:justify-between  @5xl:justify-between  @6xl:justify-between  @7xl:justify-between '
+         className=' flex h-full w-full  flex-row  items-center  justify-center bg-green-700 text-white  @2xl:justify-between  @3xl:justify-between  @4xl:justify-between  @5xl:justify-between  @6xl:justify-between  @7xl:justify-between '
       >
          <div className='ml-4 flex flex-row items-center  '>
-            <div className='w-8 h-7'>
+            <div className='h-7 w-8'>
                <img src={ISPIcon} alt='logo' />
             </div>
-            <h2 className='mx-5  flex-none  text-base  md:mr-10  lg:text-lg hide-SmScr '>
+            <h2 className='hide-SmScr  mx-5  flex-none  text-base  md:mr-10 lg:text-lg '>
                Internet Provider Master List
             </h2>
          </div>
@@ -55,13 +55,13 @@ const AppHeader = ({ headH, names }: AppProps) => {
                imgSrc={addListSvg}
                name='AddList'
                onclick={onclickHandler}
-               classData='w-7 h-7'
+               classData='w-7 h-7  bg-blue-700 '
             />
             <ButtonImgComp
                imgSrc={refreshSvg}
                name='Refrech'
                onclick={onclickHandler}
-               classData='w-7 h-7'
+               classData='w-7 h-7  bg-blue-700 '
             />
          </div>
       </div>

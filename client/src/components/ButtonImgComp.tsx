@@ -9,7 +9,7 @@ type ButtonProps = {
 const ButtonImgComp = ({ imgSrc, onclick, name, classData }: ButtonProps) => {
    return (
       <div
-         className={`group relative block ${classData}   item-center rounded-md  border-x-lime-600  bg-blue-700  p-0.5 hover:border-2 `}
+         className={`group relative block ${classData}   item-center rounded-md  border-x-lime-600  p-0.5 hover:border-2 `}
          onClick={() => {
             onclick(name);
          }}

@@ -43,10 +43,6 @@ const TableBody = ({
                   setClearSearch(true);
                   clickScrollHandler();
                }}
-               onClick={() => {
-                  setClearSearch(true);
-                  clickScrollHandler();
-               }}
             >
                {tBody.map((val, index) => {
                   return (
@@ -56,7 +52,7 @@ const TableBody = ({
                         style={{ height: `${tRowHeight + 'px'}` }}
                         className={`flex  hover:text-slate-300 ${
                            search[index]
-                              ? 'border-b border-green-600 text-white'
+                              ? 'border-b-2 border-green-600 text-white'
                               : 'border-b border-slate-700'
                         } `}
                      >
@@ -75,6 +71,10 @@ const TableBody = ({
                                  key={i}
                                  style={{
                                     width: `${widT[i + 1]}`,
+                                 }}
+                                 onClick={() => {
+                                    setClearSearch(true);
+                                    clickScrollHandler();
                                  }}
                                  className='m-auto border-r border-slate-700  text-center text-sm'
                               >

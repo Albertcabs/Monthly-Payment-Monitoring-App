@@ -62,17 +62,23 @@ export const useForm = (dateValue: number[]) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [dateValue]);
 
+   function toTitleCase(str: string) {
+      return str
+         .split(/\s+/)
+         .map((s) => s.charAt(0).toUpperCase() + s.substring(1).toLowerCase())
+         .join(' ');
+   }
+
    // onChange
    const onChange = async (
       event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
    ) => {
       // check input Customer name and Capital the first Letter
       if ('customerName' === event.target.name) {
-         const str = event.target.value;
+         let str = toTitleCase(event.target.value);
          setDVal({
             ...dVal,
-            [event.target.name]:
-               str.charAt(0).toUpperCase() + str.slice(1).toLowerCase(),
+            [event.target.name]: str,
          });
       } else {
          setDVal({

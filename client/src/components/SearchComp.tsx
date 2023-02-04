@@ -32,7 +32,7 @@ const SearchComp = ({ names }: Props) => {
                Search
             </label>
             <div className='relative'>
-               <div className='absolute inset-y-0 right-0 flex items-center p-1 w-7 h-7  '>
+               <div className='absolute inset-y-0 right-0 flex h-7 w-7 items-center p-1  '>
                   <img src={searchSvg} alt='Add List' />
                </div>
                <input
@@ -48,7 +48,7 @@ const SearchComp = ({ names }: Props) => {
          {showSearch ? (
             <div
                onMouseLeave={() => setShowSearch(false)}
-               className='absolute  z-30 mt-1 max-h-max W-full flex-row  rounded-xl border border-yellow-600 bg-slate-600 py-1 px-2 text-sm text-white'
+               className='absolute  z-30 mt-1 max-h-max w-64 flex-row  rounded-xl border border-yellow-600 bg-slate-600 py-1 px-2 text-sm text-white'
             >
                {searchValue.map((val, i) => {
                   return (

@@ -1,10 +1,8 @@
-import React from 'react';
-
 const createDataDay = (year: number, month: number) => {
    let dataBox = new Array(42).fill(0);
    let day = 1;
    // get the a number 0 to 6 , 0 is sunday and 6 is saturday
-   const firsDay = new Date(year, month, 1).getDay();
+   const firstDay = new Date(year, month, 1).getDay();
    // get the a number 28,29,30,31
    const endDayMonth = new Date(year, month + 1, 0).getDate();
 
@@ -17,21 +15,21 @@ const createDataDay = (year: number, month: number) => {
    }
    // get first week data
    let firstWeekStart = 0;
-   if (firsDay > 0) {
-      firstWeekStart = lMonthEnd - (firsDay - 1);
+   if (firstDay > 0) {
+      firstWeekStart = lMonthEnd - (firstDay - 1);
    }
    // start mapping to array
    for (let i = 0; i < dataBox.length; i++) {
       // map first week of the month
-      if (firsDay > 0 && firstWeekStart <= lMonthEnd) {
+      if (firstDay > 0 && firstWeekStart <= lMonthEnd) {
          // map first week of the month
          dataBox[i] = firstWeekStart;
          firstWeekStart++;
-      } else if (i >= firsDay && i < endDayMonth + firsDay) {
+      } else if (i >= firstDay && i < endDayMonth + firstDay) {
          // map all days in month
          dataBox[i] = day;
          day++;
-      } else if (i >= endDayMonth + firsDay) {
+      } else if (i >= endDayMonth + firstDay) {
          // map the remaining day an beyond
          if (day > 25) day = 1;
          dataBox[i] = day;
@@ -40,7 +38,7 @@ const createDataDay = (year: number, month: number) => {
          //day = 1;
       }
    }
-   return { dataBox, firsDay, endDayMonth };
+   return { dataBox, firstDay, endDayMonth };
 };
 
 export default createDataDay;

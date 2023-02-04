@@ -26,7 +26,7 @@ const ActionComp = ({ keys }: ButtonProps) => {
             setData({
                ...data,
                key: keys,
-               showComp: 'showForm',
+               showComp: 'showFormUpdate',
             });
             break;
          }
@@ -54,21 +54,21 @@ const ActionComp = ({ keys }: ButtonProps) => {
                imgSrc={deleteSvg}
                name='Delete List'
                onclick={onclickHandler}
-               classData='w-6 h-6'
+               classData='w-6 h-6  bg-blue-700 '
             />
 
             <ButtonImgComp
                imgSrc={updateSvg}
                name='Update List'
                onclick={onclickHandler}
-               classData='w-6 h-6'
+               classData='w-6 h-6  bg-blue-700 '
             />
 
             <ButtonImgComp
                imgSrc={paidSvg}
                name='Update Pay'
                onclick={onclickHandler}
-               classData='w-6 h-6'
+               classData='w-6 h-6  bg-blue-700 '
             />
 
             {/* update Icon as Button*/}

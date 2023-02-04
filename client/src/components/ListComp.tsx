@@ -47,7 +47,7 @@ const ListBodyComp = ({
                   <div
                      className={`mx-auto flex max-h-max w-[260px] flex-col rounded-2xl bg-slate-900  px-4 py-1 pt-2  ${
                         search[index]
-                           ? 'border-2 border-green-500 text-white'
+                           ? 'border-4 border-green-500 text-white'
                            : 'border border-yellow-400 text-slate-400'
                      } `}
                   >
