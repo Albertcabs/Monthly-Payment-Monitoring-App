@@ -17,34 +17,34 @@
 
 ### Sample Screen Shot:
 
-> #### Full Screen:
+> ##### Full Screen:
 >
 > > ![ISP image](client/public/SS-1.png)
 >
-> #### Small Screen
+> ##### Small Screen
 >
 > > ![ISP image](client/public/SS-2.png)
 >
-> #### Create List Names
+> ##### Create List Names
 >
 > > ![ISP image](client/public/SS-3.png)
 >
-> #### Create List Names
+> ##### Delete Customer Data
 >
 > > ![ISP image](client/public/SS-4.png)
 >
-> #### Full Screen:
+> ##### Update Customer Data:
 >
 > > ![ISP image](client/public/SS-5.png)
 >
-> #### Small Screen
+> ##### Update Payment
 >
 > > ![ISP image](client/public/SS-6.png)
 >
-> #### Create List Names
+> ##### Search List of Names
 >
 > > ![ISP image](client/public/SS-7.png)
 >
-> #### Custom Date Picker
+> ##### I create my own Date Picker
 >
 > > ![ISP image](client/public/SS-8.png)
