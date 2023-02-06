@@ -99,11 +99,7 @@ const TableBody = ({
                   );
                })}
             </div>
-         ) : (
-            <h3 className='pl-5 pt-8 font-serif text-lg text-gray-50'>
-               No Data to Display
-            </h3>
-         )}
+         ) : null}
       </div>
    );
 };

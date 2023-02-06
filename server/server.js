@@ -11,6 +11,8 @@ import {
    writeRowExcel,
    deleteRowExcel,
    updateRowExcel,
+   paidExcel,
+   resetPaidExcel,
 } from './xlsxFunction.js';
 
 const app = express();
@@ -31,18 +33,17 @@ app.use(express.json());
 
 // sent data to client side request
 app.get('/', async (req, res) => {
+   const getDay = new Date().getDate();
+   if (getDay === 1) resetPaidExcel();
    const data = readExcel();
-   // console.log(data);
+
    res.send(data);
 });
 
 // recieve data from front end
 app.post('/create', async (req, res) => {
    const data = req.body;
-
-   const newData = Object.values(data);
-
-   writeRowExcel(newData);
+   writeRowExcel(data);
    res.end('create custmer is done!');
 });
 
@@ -50,6 +51,12 @@ app.put('/update', async (req, res) => {
    const data = req.body;
    updateRowExcel(data);
    res.end('Update the Custmer data is done!');
+});
+
+app.put('/paid', async (req, res) => {
+   const data = req.body;
+   paidExcel(data);
+   res.end('the Custmer  is paid!');
 });
 
 // delete

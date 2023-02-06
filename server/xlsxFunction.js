@@ -43,19 +43,20 @@ function dateFormat(dte) {
 }
 
 export const readExcel = () => {
-   // get workbook
    const { ws } = readExcelFile();
 
+   // get workbook
    const values = xlsx.utils.sheet_to_json(ws, {
       raw: false,
       header: 1,
    });
+
    let head = [];
    const names = [];
    const body = [];
+
    const dueDate = new Array(values.length - 1).fill(0);
    const getDay = new Date().getDate();
-   const getMonth = new Date().getMonth();
 
    values.forEach((val, i) => {
       // get the header value in excell
@@ -65,28 +66,19 @@ export const readExcel = () => {
 
       // get the Body value in excell
       if (i > 0) {
+         // get the body value
          body.push(val.slice(0, 6));
+
+         // get all names
          names.push(val[1]);
+
          const day = Number(val[7]);
-         const month = Number(val[6]);
-         // get dueDate Value
-         if (getMonth === 11) {
-            // this getMonth is Dec
-            if (month === 0) {
-               dueDate[i - 1] = day < getDay ? 1 : 0;
-            } else {
-               // monyth is feb or greater month
-               dueDate[i - 1] = 2;
-            }
+         const dueDateData = Number(val[8]);
+
+         if (dueDateData === 2) {
+            dueDate[i - 1] = dueDateData;
          } else {
-            const tmp = getMonth + 1;
-            // this month is due date and equal to getMonth + 1
-            if (tmp === month) {
-               dueDate[i - 1] = day < getDay ? 1 : 0;
-            } else {
-               // month si greater to getMonth + 1
-               dueDate[i - 1] = 2;
-            }
+            dueDate[i - 1] = getDay > day ? 1 : dueDateData;
          }
       }
    });
@@ -95,26 +87,26 @@ export const readExcel = () => {
 };
 
 export const writeRowExcel = (arrObject) => {
+   const data = Object.values(arrObject);
    // get workbook
    const arr = [];
-   const len = arrObject.length;
-   let y = 0;
 
    // month for arr[6] ,day for arr[7], and year for arr[x]
 
-   for (let x = 0; x < 9; x++) {
+   for (let x = 0; x < 7; x++) {
       if (x < 6) {
          // for arr[0]  to arr[5]
          if (x === 3) {
             // for due date
-            arr.push(dateFormat(arrObject[x]));
+            arr.push(dateFormat(data[x]));
          } else {
-            arr.push(arrObject[x]);
+            arr.push(data[x]);
          }
       } else {
          // arr[6],arr[7],arr[8]
-         arr.push(arrObject[3][y]);
-         y++;
+         arr.push(data[3][0]); // for month
+         arr.push(data[3][1]); // for day
+         arr.push('0');
       }
    }
 
@@ -164,6 +156,7 @@ export const deleteRowExcel = (data) => {
 };
 
 export const updateRowExcel = (update) => {
+   const data = Object.values(update);
    const { wb, ws } = readExcelFile();
 
    const value = xlsx.utils.sheet_to_json(ws, {
@@ -171,11 +164,51 @@ export const updateRowExcel = (update) => {
       header: 1,
    });
 
-   const index = value.findIndex((cv) => cv[0] === update[1]);
+   const index = value.findIndex((cv) => cv[0] === data[0]);
 
-   ws[cellData(index, 3)].v = dateFormat(update[0]);
-   ws[cellData(index, 6)].v = update[0][0];
-   ws[cellData(index, 7)].v = update[0][1];
+   ws[cellData(index, 1)].v = data[1];
+   ws[cellData(index, 2)].v = data[2];
+   ws[cellData(index, 3)].v = dateFormat(data[3]);
+   ws[cellData(index, 4)].v = data[4];
+   ws[cellData(index, 5)].v = data[5];
+   ws[cellData(index, 6)].v = data[3][0];
+   ws[cellData(index, 7)].v = data[3][1];
 
+   reWrite(wb);
+};
+
+export const paidExcel = (paid) => {
+   const { wb, ws } = readExcelFile();
+
+   const value = xlsx.utils.sheet_to_json(ws, {
+      raw: false,
+      header: 1,
+   });
+
+   const index = value.findIndex((cv) => {
+      return cv[0] === paid[0];
+   });
+   ws[cellData(index, 3)].v = dateFormat(paid[1]);
+   ws[cellData(index, 6)].v = paid[1][0];
+   ws[cellData(index, 7)].v = paid[1][1];
+   ws[cellData(index, 8)].v = 2;
+   reWrite(wb);
+   return true;
+};
+
+export const resetPaidExcel = () => {
+   const { ws, wb } = readExcelFile();
+   const value = xlsx.utils.sheet_to_json(ws, {
+      raw: false,
+      header: 1,
+   });
+
+   // reset all paid costumer on first day of the month
+   for (let x = 1; x < value.length; ++x) {
+      console.log('jjj', ws[cellData(x, 8)].v);
+      if (ws[cellData(x, 8)].v === String(2)) {
+         ws[cellData(x, 8)].v = 0;
+      }
+   }
    reWrite(wb);
 };

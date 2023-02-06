@@ -7,7 +7,10 @@
 
 @layer components {
    .input-class {
-      @apply block w-full rounded-lg border border-gray-300 bg-gray-50 pl-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500;
+      @apply w-full border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-green-500 bg-slate-700 text-white;
+   }
+   .inputDate-class {
+      @apply w-full border border-gray-300 rounded-md shadow-sm bg-slate-700 text-white py-2 pl-2.5 text-sm;
    }
    .width-class {
       @apply mx-auto w-full @2xl:w-[672px] @3xl:w-[768px] @4xl:w-[900px] @5xl:w-[920px] @6xl:w-[950px];

@@ -41,7 +41,7 @@ const FormComp = ({ resHead }: Props) => {
                      });
                   }}
                   maxLength={20}
-                  className='input-class size-btn'
+                  className='input-class'
                   onChange={onChange}
                   required
                />
@@ -53,7 +53,7 @@ const FormComp = ({ resHead }: Props) => {
                   onClick={() => {
                      setShowDatePicker(true);
                   }}
-                  className='input-class  size-btn'
+                  className='inputDate-class'
                >
                   <h4 className='h-full pt-1 text-sm'>{dVal.startDate}</h4>
                </div>
@@ -67,7 +67,7 @@ const FormComp = ({ resHead }: Props) => {
             {/* {monitor due Date after setiing the start date} */}
             <div className='mb-5'>
                <label className='label'>{`${resHead[3]} :`}</label>
-               <div className='input-class  size-btn '>
+               <div className='inputDate-class '>
                   <h4 className='h-full pt-1 text-sm'>
                      {dateFormat(dVal.dueDate)}
                   </h4>
@@ -82,7 +82,7 @@ const FormComp = ({ resHead }: Props) => {
                   onFocus={() => {
                      setDVal({ ...dVal, payment: '' });
                   }}
-                  className='input-class  size-btn'
+                  className='input-class '
                   onChange={onChange}
                   required
                >
@@ -99,7 +99,7 @@ const FormComp = ({ resHead }: Props) => {
                   type='number'
                   name={'price'}
                   value={dVal.price}
-                  className='input-class size-btn'
+                  className='input-class '
                   onFocus={() => {
                      setDVal({ ...dVal, price: '' });
                   }}

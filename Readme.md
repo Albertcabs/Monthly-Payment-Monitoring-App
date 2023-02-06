@@ -45,6 +45,6 @@
 >
 > > ![ISP image](client/public/SS-7.png)
 >
-> ##### I create my own Date Picker
+> ##### Date Picker
 >
 > > ![ISP image](client/public/SS-8.png)

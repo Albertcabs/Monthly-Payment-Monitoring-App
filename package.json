@@ -3,7 +3,7 @@
    "version": "1.0.0",
    "description": "",
    "scripts": {
-      "start": "concurrently \"cd ./server && npm run server\" \"cd ./client && npm run dev\""
+      "start": "concurrently \"cd ./server && npm run server\" \"cd ./client && npm run client\""
    },
    "repository": {
       "type": "git",
